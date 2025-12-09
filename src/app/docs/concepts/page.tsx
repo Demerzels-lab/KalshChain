@@ -19,17 +19,17 @@ export default function ConceptsPage() {
       <section className="mb-12">
         <h2 className="text-2xl font-bold text-slate-900 mb-4">1. Prediction Markets</h2>
         <p className="text-slate-700">
-          A prediction market is a trading platform where users buy and sell shares corresponding to the outcome of a future event. Shares are priced between $0.00 and $1.00.
+          A prediction market is a trading platform where users buy and sell shares corresponding to the outcome of a future event. Shares are priced between 0.00 and 1.00 SOL.
         </p>
         <ul className='text-slate-700 space-y-2 mt-4'>
           <li>
-            If you buy a 'YES' share at $0.40, you are predicting the event has a 40% chance of occurring.
+            If you buy a 'YES' share at 0.40 SOL, you are predicting the event has a 40% chance of occurring.
           </li>
           <li>
-            If the event occurs (YES), the share settles at $1.00, giving you a $0.60 profit.
+            If the event occurs (YES), the share settles at 1.00 SOL, giving you a 0.60 SOL profit.
           </li>
           <li>
-            If the event does not occur (NO), the share settles at $0.00, and you lose your $0.40 investment.
+            If the event does not occur (NO), the share settles at 0.00 SOL, and you lose your 0.40 SOL investment.
           </li>
         </ul>
       </section>
@@ -77,7 +77,7 @@ export default function ConceptsPage() {
         </p>
         <h3 className="text-xl font-semibold text-slate-900 mb-3 mt-6">Settlement Payouts</h3>
         <p className="text-slate-700">
-          Holders of the winning outcome receive $1.00 per share, drawn from the liquidity pool. Holders of the losing outcome receive $0.00.
+          Holders of the winning outcome receive 1.00 SOL per share, drawn from the liquidity pool. Holders of the losing outcome receive 0.00 SOL.
         </p>
       </section>
       

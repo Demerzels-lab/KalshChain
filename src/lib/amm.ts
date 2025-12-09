@@ -1,6 +1,7 @@
 import { AMMQuote, LiquidityPool } from '@/types';
 
 const FEE_RATE = 0.02;
+const PRICE_PER_SHARE = 0.01; // 1 share = 0.01 SOL
 
 export function calculateAMMQuote(
   pool: LiquidityPool,
@@ -8,11 +9,17 @@ export function calculateAMMQuote(
   side: 'BUY' | 'SELL',
   quantity: number
 ): AMMQuote {
+  // Fixed pricing: 1 share = 0.01 SOL
+  const baseCost = quantity * PRICE_PER_SHARE;
+  const fee = baseCost * FEE_RATE;
+  const total = side === 'BUY' ? baseCost + fee : baseCost - fee;
+  const price = PRICE_PER_SHARE;
+  
+  // For simplicity, maintain the same reserve calculations for price updates
   const yesReserve = Number(pool.yes_reserve);
   const noReserve = Number(pool.no_reserve);
   const k = yesReserve * noReserve;
   
-  let cost: number;
   let newYesReserve: number;
   let newNoReserve: number;
   
@@ -20,27 +27,19 @@ export function calculateAMMQuote(
     if (outcome === 'YES') {
       newYesReserve = yesReserve - quantity;
       newNoReserve = k / newYesReserve;
-      cost = newNoReserve - noReserve;
     } else {
       newNoReserve = noReserve - quantity;
       newYesReserve = k / newNoReserve;
-      cost = newYesReserve - yesReserve;
     }
   } else {
     if (outcome === 'YES') {
       newYesReserve = yesReserve + quantity;
       newNoReserve = k / newYesReserve;
-      cost = noReserve - newNoReserve;
     } else {
       newNoReserve = noReserve + quantity;
       newYesReserve = k / newNoReserve;
-      cost = yesReserve - newYesReserve;
     }
   }
-  
-  const fee = Math.abs(cost) * FEE_RATE;
-  const total = side === 'BUY' ? cost + fee : cost - fee;
-  const price = Math.abs(cost / quantity);
   
   const totalReserves = newYesReserve + newNoReserve;
   const newYesPrice = newNoReserve / totalReserves;
@@ -53,7 +52,7 @@ export function calculateAMMQuote(
   
   return {
     price,
-    cost: Math.abs(cost),
+    cost: baseCost,
     fee,
     total: Math.abs(total),
     priceImpact,

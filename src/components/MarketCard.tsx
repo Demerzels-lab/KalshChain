@@ -37,15 +37,15 @@ export function MarketCard({ market }: MarketCardProps) {
 
           <div className="space-y-3">
             <div className="flex items-center gap-3">
-              {/* Inverted background color for sentiment bar */}
+              {/* Updated sentiment bar to cyan-primary colors */}
               <div className="flex-1 h-2.5 bg-slate-200 rounded-full overflow-hidden">
                 <div
-                  className="h-full bg-gradient-to-r from-emerald-500 to-emerald-400 rounded-full transition-all duration-500"
+                  className="h-full bg-gradient-to-r from-cyan-primary-500 to-cyan-primary-400 rounded-full transition-all duration-500"
                   style={{ width: `${yesPercent}%` }}
                 />
               </div>
-              {/* Text color remains emerald for YES price */}
-              <span className="text-sm font-medium text-emerald-600 min-w-[50px] text-right">
+              {/* Updated text color to cyan-primary for YES price */}
+              <span className="text-sm font-medium text-cyan-primary-600 min-w-[50px] text-right">
                 {formatPercent(market.yes_price)}
               </span>
             </div>
@@ -59,7 +59,7 @@ export function MarketCard({ market }: MarketCardProps) {
               <div className="flex items-center gap-3">
                 <div className="flex items-center gap-1">
                   <TrendingUp className="h-3.5 w-3.5" />
-                  ${formatNumber(Number(market.total_volume))}
+                  {formatNumber(Number(market.total_volume))} SOL
                 </div>
                 <div className="flex items-center gap-1">
                   {/* Updated icon color to cyan-primary */}
@@ -70,12 +70,12 @@ export function MarketCard({ market }: MarketCardProps) {
             </div>
           </div>
 
-          {/* Updated button styles for light theme */}
+          {/* Updated button styles for light theme with cyan colors */}
           <div className="mt-4 pt-4 border-t border-gray-200 flex gap-2">
-            <button className="flex-1 py-2 rounded-lg bg-emerald-500/10 text-emerald-600 text-sm font-medium hover:bg-emerald-500/20 transition-colors">
+            <button className="flex-1 py-2 rounded-lg bg-cyan-primary-500/10 text-cyan-primary-600 text-sm font-medium hover:bg-cyan-primary-500/20 transition-colors">
               Yes {formatPercent(market.yes_price)}
             </button>
-            <button className="flex-1 py-2 rounded-lg bg-rose-500/10 text-rose-600 text-sm font-medium hover:bg-rose-500/20 transition-colors">
+            <button className="flex-1 py-2 rounded-lg bg-blue-500/10 text-blue-600 text-sm font-medium hover:bg-blue-500/20 transition-colors">
               No {formatPercent(market.no_price)}
             </button>
           </div>

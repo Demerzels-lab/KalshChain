@@ -11,8 +11,7 @@ import { cn } from '@/lib/utils';
 
 const navItems = [
   { href: '/', label: 'Home', icon: TrendingUp },
-  { href: '/explore', label: 'Explore', icon: LayoutGrid },
-  { href: '/how-it-works', label: 'How it Works', icon: HelpCircle },
+  { href: '/explore', label: 'Markets', icon: LayoutGrid },
   { href: '/docs', label: 'Docs', icon: BookOpen },
 ];
 
@@ -30,17 +29,17 @@ export function Navbar() {
   return (
     <nav className="sticky top-0 z-50 border-b border-gray-200 bg-white/90 backdrop-blur-md">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <div className="flex h-16 items-center justify-between">
-          <div className="flex items-center gap-8">
+        <div className="flex h-14 items-center justify-between">
+          <div className="flex items-center gap-6">
             <Link href="/" className="flex items-center gap-2">
-              <div className="h-8 w-8 rounded-lg overflow-hidden bg-gradient-to-br from-cyan-primary-300 to-cyan-primary-600 flex items-center justify-center">
+              <div className="h-7 w-7 rounded-lg overflow-hidden bg-gradient-to-br from-cyan-primary-300 to-cyan-primary-600 flex items-center justify-center">
                 <img
                   src="/logo.jpeg"
                   alt="KalshChain Logo"
-                  className="h-6 w-6 object-cover"
+                  className="h-5 w-5 object-cover"
                 />
               </div>
-              <span className="text-xl font-bold bg-gradient-to-r from-cyan-primary-600 to-cyan-primary-900 bg-clip-text text-transparent">
+              <span className="text-lg font-bold bg-gradient-to-r from-cyan-primary-600 to-cyan-primary-900 bg-clip-text text-transparent">
                 KalshChain
               </span>
             </Link>
@@ -54,7 +53,7 @@ export function Navbar() {
                     key={item.href}
                     href={item.href}
                     className={cn(
-                      'flex items-center gap-2 px-3 py-2 rounded-lg text-sm font-medium transition-colors',
+                      'flex items-center gap-2 px-2 py-1.5 rounded-lg text-sm font-medium transition-colors',
                       isActive
                         ? 'bg-cyan-primary-500/20 text-cyan-primary-700'
                         : 'text-slate-600 hover:text-slate-900 hover:bg-slate-100'
@@ -78,7 +77,7 @@ export function Navbar() {
                     key={item.href}
                     href={item.href}
                     className={cn(
-                      'flex items-center gap-2 px-3 py-2 rounded-lg text-sm font-medium transition-colors',
+                      'flex items-center gap-2 px-2 py-1.5 rounded-lg text-sm font-medium transition-colors',
                       isActive
                         ? 'bg-cyan-primary-500/20 text-cyan-primary-700'
                         : 'text-slate-600 hover:text-slate-900 hover:bg-slate-100'
@@ -92,8 +91,8 @@ export function Navbar() {
             </div>
 
             {connected && (
-              <div className="hidden sm:flex items-center gap-2 px-3 py-1.5 rounded-lg bg-emerald-500/10 border border-emerald-500/20">
-                <div className="h-2 w-2 rounded-full bg-emerald-500 animate-pulse" />
+              <div className="hidden sm:flex items-center gap-1 px-2 py-1 rounded-md bg-emerald-500/10 border border-emerald-500/20">
+                <div className="h-1.5 w-1.5 rounded-full bg-emerald-500" />
                 <span className="text-xs text-emerald-600">Connected</span>
               </div>
             )}
@@ -122,7 +121,7 @@ export function Navbar() {
                 href={item.href}
                 onClick={() => setMobileMenuOpen(false)}
                 // Mobile Link Style: Darker text, light hover background
-                className="flex items-center gap-3 px-3 py-3 rounded-lg text-slate-700 hover:bg-slate-100"
+                className="flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-700 hover:bg-slate-100"
               >
                 <Icon className="h-5 w-5" />
                 {item.label}
@@ -138,7 +137,7 @@ export function Navbar() {
                 href={item.href}
                 onClick={() => setMobileMenuOpen(false)}
                 // Mobile Link Style: Darker text, light hover background
-                className="flex items-center gap-3 px-3 py-3 rounded-lg text-slate-700 hover:bg-slate-100"
+                className="flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-700 hover:bg-slate-100"
               >
                 <Icon className="h-5 w-5" />
                 {item.label}

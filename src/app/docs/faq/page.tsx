@@ -10,7 +10,7 @@ const faqs = [
   },
   {
     question: 'How do prices work?',
-    answer: 'Prices range from $0.01 to $0.99 and represent the probability of an outcome. For example, if YES shares are trading at $0.60, the market believes theres a 60% chance the event will happen. When the market resolves, winning shares pay $1 and losing shares pay $0.'
+    answer: 'Prices range from 0.01 to 0.99 SOL and represent the probability of an outcome. For example, if YES shares are trading at 0.60 SOL, the market believes theres a 60% chance the event will happen. When the market resolves, winning shares pay 1 SOL and losing shares pay 0 SOL.'
   },
   {
     question: 'What wallet do I need?',
@@ -18,7 +18,7 @@ const faqs = [
   },
   {
     question: 'What are the fees?',
-    answer: 'We charge a 2% fee on each trade. This fee is used to reward liquidity providers and maintain the platform. There are also minimal Solana network fees (usually less than $0.01 per transaction).'
+    answer: 'We charge a 2% fee on each trade. This fee is used to reward liquidity providers and maintain the platform. There are also minimal Solana network fees (usually less than 0.01 SOL per transaction).'
   },
   {
     question: 'How are markets resolved?',

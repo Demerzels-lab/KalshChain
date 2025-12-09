@@ -24,7 +24,7 @@ const glossaryItems = [
   },
   {
     term: 'Share',
-    definition: 'A token representing one side of a prediction market outcome (YES or NO). Shares are priced between $0.00 and $1.00 and settle at $1.00 if they represent the winning outcome.',
+    definition: 'A token representing one side of a prediction market outcome (YES or NO). Shares are priced between 0.00 and 1.00 SOL and settle at 1.00 SOL if they represent the winning outcome.',
   },
   {
     term: 'USDC',

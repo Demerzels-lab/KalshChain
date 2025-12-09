@@ -52,23 +52,6 @@ export function TradingPanel({ market, pool, onTradeComplete }: TradingPanelProp
     }
   };
 
-  if (!connected) {
-    return (
-      <Card className="border-gray-200">
-        <CardContent className="p-8 text-center">
-          <div className="mb-4 mx-auto w-16 h-16 rounded-full bg-slate-100 flex items-center justify-center">
-            <Lock className="h-8 w-8 text-slate-500" />
-          </div>
-          <h3 className="text-lg font-semibold text-slate-900 mb-2">Connect Wallet to Trade</h3>
-          <p className="text-sm text-slate-600 mb-6">
-            You need a Phantom wallet to trade on this market
-          </p>
-          <WalletMultiButton className="!bg-cyan-primary-600 hover:!bg-cyan-primary-700 !rounded-lg !mx-auto" />
-        </CardContent>
-      </Card>
-    );
-  }
-
   return (
     <Card className="border-gray-200">
       <CardHeader className="pb-4">
@@ -79,6 +62,8 @@ export function TradingPanel({ market, pool, onTradeComplete }: TradingPanelProp
               variant={side === 'BUY' ? 'default' : 'outline'}
               size="sm"
               onClick={() => setSide('BUY')}
+              disabled={!connected}
+              className={side === 'BUY' ? '' : 'text-slate-900 border-slate-300 hover:bg-slate-100'}
             >
               Buy
             </Button>
@@ -86,6 +71,8 @@ export function TradingPanel({ market, pool, onTradeComplete }: TradingPanelProp
               variant={side === 'SELL' ? 'default' : 'outline'}
               size="sm"
               onClick={() => setSide('SELL')}
+              disabled={!connected}
+              className={side === 'SELL' ? '' : 'text-slate-900 border-slate-300 hover:bg-slate-100'}
             >
               Sell
             </Button>
@@ -96,30 +83,36 @@ export function TradingPanel({ market, pool, onTradeComplete }: TradingPanelProp
       <CardContent className="space-y-5">
         <div className="grid grid-cols-2 gap-3">
           <button
-            onClick={() => setOutcome('YES')}
+            onClick={() => connected && setOutcome('YES')}
+            disabled={!connected}
             className={`p-4 rounded-xl border-2 transition-all ${
-              outcome === 'YES'
-                ? 'border-emerald-500 bg-emerald-500/10'
-                : 'border-slate-300 bg-slate-100 hover:border-slate-400' // Inverted passive button colors
+              !connected 
+                ? 'border-slate-200 bg-slate-50 opacity-50 cursor-not-allowed'
+                : outcome === 'YES'
+                ? 'border-cyan-primary-500 bg-cyan-primary-500/10'
+                : 'border-slate-300 bg-slate-100 hover:border-slate-400'
             }`}
           >
-            {/* Text color remains emerald for YES/NO price */}
-            <div className="text-2xl font-bold text-emerald-600 mb-1">
+            {/* Updated text color to cyan-primary for YES price */}
+            <div className="text-2xl font-bold text-cyan-primary-600 mb-1">
               {formatPercent(market.yes_price)}
             </div>
             {/* Inverted text color */}
             <div className="text-sm text-slate-600">YES</div>
           </button>
           <button
-            onClick={() => setOutcome('NO')}
+            onClick={() => connected && setOutcome('NO')}
+            disabled={!connected}
             className={`p-4 rounded-xl border-2 transition-all ${
-              outcome === 'NO'
-                ? 'border-rose-500 bg-rose-500/10'
-                : 'border-slate-300 bg-slate-100 hover:border-slate-400' // Inverted passive button colors
+              !connected 
+                ? 'border-slate-200 bg-slate-50 opacity-50 cursor-not-allowed'
+                : outcome === 'NO'
+                ? 'border-blue-500 bg-blue-500/10'
+                : 'border-slate-300 bg-slate-100 hover:border-slate-400'
             }`}
           >
-            {/* Text color remains rose for YES/NO price */}
-            <div className="text-2xl font-bold text-rose-600 mb-1">
+            {/* Updated text color to blue for NO price */}
+            <div className="text-2xl font-bold text-blue-600 mb-1">
               {formatPercent(market.no_price)}
             </div>
             {/* Inverted text color */}
@@ -137,7 +130,8 @@ export function TradingPanel({ market, pool, onTradeComplete }: TradingPanelProp
             type="number"
             value={quantity}
             onChange={(e) => setQuantity(e.target.value)}
-            className="w-full px-4 py-3 rounded-lg bg-slate-100 border border-slate-300 text-slate-900 text-lg font-medium focus:outline-none focus:ring-2 focus:ring-cyan-primary-500 focus:border-transparent"
+            disabled={!connected}
+            className="w-full px-4 py-3 rounded-lg bg-slate-100 border border-slate-300 text-slate-900 text-lg font-medium focus:outline-none focus:ring-2 focus:ring-cyan-primary-500 focus:border-transparent disabled:opacity-50 disabled:cursor-not-allowed"
             placeholder="0"
             min="0"
           />
@@ -146,8 +140,9 @@ export function TradingPanel({ market, pool, onTradeComplete }: TradingPanelProp
               <button
                 key={val}
                 onClick={() => setQuantity(val.toString())}
+                disabled={!connected}
                 // Inverted secondary button styling
-                className="flex-1 py-1.5 text-sm rounded-md bg-slate-200 text-slate-600 hover:bg-slate-300 hover:text-slate-900 transition-colors"
+                className="flex-1 py-1.5 text-sm rounded-md bg-slate-200 text-slate-600 hover:bg-slate-300 hover:text-slate-900 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
               >
                 {val}
               </button>
@@ -155,7 +150,7 @@ export function TradingPanel({ market, pool, onTradeComplete }: TradingPanelProp
           </div>
         </div>
 
-        {quote && (
+        {connected && quote && (
           <div className="p-4 rounded-lg bg-slate-100 space-y-2">
             <div className="flex justify-between text-sm">
               <span className="text-slate-600">Estimated Price</span>
@@ -197,22 +192,26 @@ export function TradingPanel({ market, pool, onTradeComplete }: TradingPanelProp
           </div>
         )}
 
-        <Button
-          variant={outcome === 'YES' ? 'yes' : 'no'}
-          size="lg"
-          className="w-full"
-          onClick={handleTrade}
-          disabled={loading || !pool}
-        >
-          {loading ? (
-            <>
-              <Loader2 className="mr-2 h-5 w-5 animate-spin" />
-              Processing...
-            </>
-          ) : (
-            `${side === 'BUY' ? 'Buy' : 'Sell'} ${outcome} Shares`
-          )}
-        </Button>
+        {!connected ? (
+          <WalletMultiButton className="!bg-cyan-primary-600 hover:!bg-cyan-primary-700 !rounded-lg !w-full !h-12 !text-base" />
+        ) : (
+          <Button
+            variant={outcome === 'YES' ? 'yes' : 'no'}
+            size="lg"
+            className="w-full"
+            onClick={handleTrade}
+            disabled={loading || !pool}
+          >
+            {loading ? (
+              <>
+                <Loader2 className="mr-2 h-5 w-5 animate-spin" />
+                Processing...
+              </>
+            ) : (
+              `${side === 'BUY' ? 'Buy' : 'Sell'} ${outcome} Shares`
+            )}
+          </Button>
+        )}
       </CardContent>
     </Card>
   );

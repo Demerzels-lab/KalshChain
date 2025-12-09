@@ -1,4 +1,3 @@
-// demerzels-lab/kalshchain/KalshChain-237051255d46360ee0eab8d0278534895dc525cf/src/app/page.tsx
 'use client';
 
 import { useState } from 'react';
@@ -37,7 +36,7 @@ export default function HomePage() {
             </div>
             {/* Inverted text color */}
             <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-slate-900 mb-6">
-              Decentralized{' '}
+              Decentralized Kalshi {' '}
               {/* Updated gradient to use cyan-primary (from light to dark on white BG) */}
               <span className="bg-gradient-to-r from-cyan-primary-600 to-cyan-primary-900 bg-clip-text text-transparent">
                 Prediction Markets
@@ -111,7 +110,7 @@ export default function HomePage() {
           <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
             {[
               { label: 'Total Markets', value: markets.length, icon: TrendingUp },
-              { label: 'Total Volume', value: '$2.4M', icon: Zap },
+              { label: 'Total Volume', value: '2.4M SOL', icon: Zap },
               { label: 'Kalshi 2026', value: kalshiMarkets.length, icon: Shield },
               { label: 'On-Chain', value: onChainMarkets.length, icon: Shield },
             ].map((stat) => {
@@ -226,7 +225,10 @@ export default function HomePage() {
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Link href="/explore">
-                <Button size="lg">Start Trading</Button>
+                <Button size="lg">
+                  <TrendingUp className="mr-2 h-5 w-5" />
+                  Start Trading
+                </Button>
               </Link>
               <Link href="/docs">
                 {/* Updated outline button for light theme */}

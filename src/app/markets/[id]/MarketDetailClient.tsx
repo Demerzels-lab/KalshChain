@@ -20,7 +20,7 @@ export function MarketDetailClient({ marketId }: { marketId: string }) {
   if (loading) {
     return (
       <div className="flex items-center justify-center min-h-[60vh]">
-        <Loader2 className="h-10 w-10 animate-spin text-indigo-500" />
+        <Loader2 className="h-10 w-10 animate-spin text-cyan-primary-600" />
       </div>
     );
   }
@@ -29,8 +29,8 @@ export function MarketDetailClient({ marketId }: { marketId: string }) {
     return (
       <div className="max-w-7xl mx-auto px-4 py-12">
         <Card className="p-12 text-center">
-          <h2 className="text-xl font-semibold text-white mb-2">Market Not Found</h2>
-          <p className="text-slate-400">The market you&apos;re looking for is not available.</p>
+          <h2 className="text-xl font-semibold text-slate-900 mb-2">Market Not Found</h2>
+          <p className="text-slate-600">The market you&apos;re looking for is not available.</p>
         </Card>
       </div>
     );
@@ -51,51 +51,51 @@ export function MarketDetailClient({ marketId }: { marketId: string }) {
                   {market.category}
                 </span>
                 {market.is_kalshi && (
-                  <span className="px-3 py-1 rounded-full text-sm bg-amber-500/20 text-amber-400 border border-amber-500/30">
+                  <span className="px-3 py-1 rounded-full text-sm bg-amber-100 text-amber-800 border border-amber-200">
                     Kalshi 2026
                   </span>
                 )}
-                <span className="px-3 py-1 rounded-full text-sm bg-slate-700 text-slate-300">
+                <span className="px-3 py-1 rounded-full text-sm bg-slate-100 text-slate-700 border border-slate-200">
                   {market.status === 'active' ? 'Active' : market.status}
                 </span>
               </div>
 
-              <h1 className="text-2xl sm:text-3xl font-bold text-white mb-4">
+              <h1 className="text-2xl sm:text-3xl font-bold text-slate-900 mb-4">
                 {market.title}
               </h1>
 
               {market.description && (
-                <p className="text-slate-400 mb-6">{market.description}</p>
+                <p className="text-slate-600 mb-6">{market.description}</p>
               )}
 
               <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
-                <div className="p-4 rounded-lg bg-slate-800/50">
-                  <div className="flex items-center gap-2 text-slate-400 text-sm mb-1">
+                <div className="p-4 rounded-lg bg-slate-50 border border-slate-200">
+                  <div className="flex items-center gap-2 text-slate-600 text-sm mb-1">
                     <Clock className="h-4 w-4" />
                     Expires
                   </div>
-                  <div className="text-white font-semibold">{getTimeRemaining(market.expiration_date)}</div>
+                  <div className="text-slate-900 font-semibold">{getTimeRemaining(market.expiration_date)}</div>
                 </div>
-                <div className="p-4 rounded-lg bg-slate-800/50">
-                  <div className="flex items-center gap-2 text-slate-400 text-sm mb-1">
+                <div className="p-4 rounded-lg bg-slate-50 border border-slate-200">
+                  <div className="flex items-center gap-2 text-slate-600 text-sm mb-1">
                     <TrendingUp className="h-4 w-4" />
                     Volume
                   </div>
-                  <div className="text-white font-semibold">${formatNumber(Number(market.total_volume))}</div>
+                  <div className="text-slate-900 font-semibold">{formatNumber(Number(market.total_volume))} SOL</div>
                 </div>
-                <div className="p-4 rounded-lg bg-slate-800/50">
-                  <div className="flex items-center gap-2 text-slate-400 text-sm mb-1">
+                <div className="p-4 rounded-lg bg-slate-50 border border-slate-200">
+                  <div className="flex items-center gap-2 text-slate-600 text-sm mb-1">
                     <Droplets className="h-4 w-4" />
                     Liquidity
                   </div>
-                  <div className="text-white font-semibold">${pool ? formatNumber(Number(pool.tvl)) : '0'}</div>
+                  <div className="text-slate-900 font-semibold">{pool ? formatNumber(Number(pool.tvl)) : '0'} SOL</div>
                 </div>
-                <div className="p-4 rounded-lg bg-slate-800/50">
-                  <div className="flex items-center gap-2 text-slate-400 text-sm mb-1">
+                <div className="p-4 rounded-lg bg-slate-50 border border-slate-200">
+                  <div className="flex items-center gap-2 text-slate-600 text-sm mb-1">
                     <Users className="h-4 w-4" />
                     Traders
                   </div>
-                  <div className="text-white font-semibold">{Math.floor(Math.random() * 500) + 50}</div>
+                  <div className="text-slate-900 font-semibold">{Math.floor(Math.random() * 500) + 50}</div>
                 </div>
               </div>
             </CardContent>
@@ -105,7 +105,7 @@ export function MarketDetailClient({ marketId }: { marketId: string }) {
           <Card>
             <CardHeader>
               <CardTitle className="flex items-center gap-2">
-                <BarChart3 className="h-5 w-5 text-indigo-400" />
+                <BarChart3 className="h-5 w-5 text-cyan-primary-600" />
                 Price History
               </CardTitle>
             </CardHeader>
@@ -115,17 +115,17 @@ export function MarketDetailClient({ marketId }: { marketId: string }) {
                   <AreaChart data={mockPriceHistory}>
                     <defs>
                       <linearGradient id="yesGradient" x1="0" y1="0" x2="0" y2="1">
-                        <stop offset="5%" stopColor="#10b981" stopOpacity={0.3}/>
-                        <stop offset="95%" stopColor="#10b981" stopOpacity={0}/>
+                        <stop offset="5%" stopColor="#0891b2" stopOpacity={0.3}/>
+                        <stop offset="95%" stopColor="#0891b2" stopOpacity={0}/>
                       </linearGradient>
                     </defs>
                     <XAxis dataKey="day" stroke="#64748b" fontSize={12} />
                     <YAxis stroke="#64748b" fontSize={12} domain={[0, 1]} tickFormatter={(v: number) => `${(v * 100).toFixed(0)}%`} />
                     <Tooltip
-                      contentStyle={{ backgroundColor: '#1e293b', border: '1px solid #334155', borderRadius: '8px' }}
-                      labelStyle={{ color: '#94a3b8' }}
+                      contentStyle={{ backgroundColor: '#ffffff', border: '1px solid #e2e8f0', borderRadius: '8px' }}
+                      labelStyle={{ color: '#64748b' }}
                     />
-                    <Area type="monotone" dataKey="yes" stroke="#10b981" fill="url(#yesGradient)" strokeWidth={2} />
+                    <Area type="monotone" dataKey="yes" stroke="#0891b2" fill="url(#yesGradient)" strokeWidth={2} />
                   </AreaChart>
                 </ResponsiveContainer>
               </div>
@@ -139,30 +139,30 @@ export function MarketDetailClient({ marketId }: { marketId: string }) {
             </CardHeader>
             <CardContent>
               <div className="flex gap-4">
-                <div className="flex-1 p-6 rounded-xl bg-emerald-500/10 border border-emerald-500/30 text-center">
-                  <div className="text-4xl font-bold text-emerald-400 mb-2">
+                <div className="flex-1 p-6 rounded-xl bg-cyan-primary-50 border border-cyan-primary-200 text-center">
+                  <div className="text-4xl font-bold text-cyan-primary-700 mb-2">
                     {formatPercent(prices.yes)}
                   </div>
-                  <div className="text-slate-400">YES</div>
+                  <div className="text-slate-600">YES</div>
                 </div>
-                <div className="flex-1 p-6 rounded-xl bg-rose-500/10 border border-rose-500/30 text-center">
-                  <div className="text-4xl font-bold text-rose-400 mb-2">
+                <div className="flex-1 p-6 rounded-xl bg-blue-50 border border-blue-200 text-center">
+                  <div className="text-4xl font-bold text-blue-700 mb-2">
                     {formatPercent(prices.no)}
                   </div>
-                  <div className="text-slate-400">NO</div>
+                  <div className="text-slate-600">NO</div>
                 </div>
               </div>
 
-              {/* Sentiment Bar */}
+              {/* Updated sentiment bar to cyan-primary colors */}
               <div className="mt-6">
-                <div className="text-sm text-slate-400 mb-2">Community Sentiment</div>
-                <div className="h-3 rounded-full overflow-hidden bg-slate-800 flex">
+                <div className="text-sm text-slate-600 mb-2">Community Sentiment</div>
+                <div className="h-3 rounded-full overflow-hidden bg-slate-200 flex">
                   <div 
-                    className="bg-gradient-to-r from-emerald-600 to-emerald-400 transition-all duration-500"
+                    className="bg-gradient-to-r from-cyan-primary-600 to-cyan-primary-400 transition-all duration-500"
                     style={{ width: `${prices.yes * 100}%` }}
                   />
                   <div 
-                    className="bg-gradient-to-r from-rose-400 to-rose-600"
+                    className="bg-gradient-to-r from-blue-400 to-blue-600"
                     style={{ width: `${prices.no * 100}%` }}
                   />
                 </div>
