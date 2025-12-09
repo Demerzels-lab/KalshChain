@@ -1,4 +1,5 @@
-// demerzels-lab/kalshchain/KalshChain-237051255d46360ee0eab8d0278534895dc525cf/src/components/docs/CodeBlock.tsx
+"use client"; 
+
 import { useState } from 'react';
 import { Copy, Check } from 'lucide-react';
 

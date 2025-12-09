@@ -19,38 +19,44 @@ export default function SecurityPage() {
       <section className="mb-12">
         <h2 className="text-2xl font-bold text-slate-900 mb-4">Core Principles</h2>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4 not-prose">
-          {/* Card 1: Non-Custodial */}
-          <Card className="p-5 transition-all hover:shadow-cyan-primary-500/10 hover:border-cyan-primary-400">
-            <div className="flex items-center gap-3 mb-2">
-              <Lock className="h-5 w-5 text-cyan-primary-600" />
-              <h4 className="font-semibold text-slate-900">Non-Custodial</h4>
-            </div>
-            <p className="text-sm text-slate-600">
-              We never hold your funds. All assets remain in your personal Solana wallet, controlled only by you.
-            </p>
-          </Card>
+          {/* Card 1: Non-Custodial (Cyan-primary accent) */}
+          <Link href="/docs/wallet-integration">
+            <Card className="h-full p-5 transition-all hover:shadow-cyan-primary-500/10 hover:border-cyan-primary-400">
+              <div className="flex items-center gap-3 mb-2">
+                <Lock className="h-5 w-5 text-cyan-primary-600" />
+                <h4 className="font-semibold text-slate-900">Non-Custodial</h4>
+              </div>
+              <p className="text-sm text-slate-600">
+                We never hold your funds. All assets remain in your personal Solana wallet, controlled only by you.
+              </p>
+            </Card>
+          </Link>
 
-          {/* Card 2: On-Chain Logic */}
-          <Card className="p-5 transition-all hover:shadow-cyan-primary-500/10 hover:border-cyan-primary-400">
-            <div className="flex items-center gap-3 mb-2">
-              <Code className="h-5 w-5 text-cyan-primary-600" />
-              <h4 className="font-semibold text-slate-900">On-Chain Logic</h4>
-            </div>
-            <p className="text-sm text-slate-600">
-              Market creation, trading, and settlement are governed by public, audited smart contracts.
-            </p>
-          </Card>
+          {/* Card 2: On-Chain Logic (Cyan-primary accent) */}
+          <Link href="/docs/smart-contracts">
+            <Card className="h-full p-5 transition-all hover:shadow-cyan-primary-500/10 hover:border-cyan-primary-400">
+              <div className="flex items-center gap-3 mb-2">
+                <Code className="h-5 w-5 text-cyan-primary-600" />
+                <h4 className="font-semibold text-slate-900">On-Chain Logic</h4>
+              </div>
+              <p className="text-sm text-slate-600">
+                Market creation, trading, and settlement are governed by public, audited smart contracts.
+              </p>
+            </Card>
+          </Link>
 
-          {/* Card 3: Transparent Data */}
-          <Card className="p-5 transition-all hover:shadow-cyan-primary-500/10 hover:border-cyan-primary-400">
-            <div className="flex items-center gap-3 mb-2">
-              <Server className="h-5 w-5 text-cyan-primary-600" />
-              <h4 className="font-semibold text-slate-900">Transparent Data</h4>
-            </div>
-            <p className="text-sm text-slate-600">
-              All trade data is recorded on the Solana ledger, ensuring verifiable market activity.
-            </p>
-          </Card>
+          {/* Card 3: Transparent Data (Cyan-primary accent) */}
+          <Link href="/docs/api">
+            <Card className="h-full p-5 transition-all hover:shadow-cyan-primary-500/10 hover:border-cyan-primary-400">
+              <div className="flex items-center gap-3 mb-2">
+                <Server className="h-5 w-5 text-cyan-primary-600" />
+                <h4 className="font-semibold text-slate-900">Transparent Data</h4>
+              </div>
+              <p className="text-sm text-slate-600">
+                All trade data is recorded on the Solana ledger, ensuring verifiable market activity.
+              </p>
+            </Card>
+          </Link>
         </div>
       </section>
 
@@ -60,6 +66,7 @@ export default function SecurityPage() {
         <p className="text-slate-700 mb-4">
           The KalshChain smart contracts have been submitted for formal audit by [Auditor Name] to ensure resistance against common exploits like re-entrancy, overflow, and logic errors.
         </p>
+        {/* Updated card styling for light theme success/alert */}
         <Card className="p-5 bg-emerald-500/10 border-emerald-500/30">
           <h3 className="font-semibold text-emerald-700">Audit Status: In Progress</h3>
           <p className="text-sm text-emerald-600 mt-1">
@@ -89,11 +96,13 @@ export default function SecurityPage() {
         <h2 className="text-2xl font-bold text-slate-900 mb-4">Next Steps</h2>
         <ul className='space-y-2'>
           <li>
+            {/* Cyan-primary link color */}
             <Link href="/docs/smart-contracts" className='text-cyan-primary-600 hover:text-cyan-primary-700 flex items-center'>
               <ArrowRight className='h-4 w-4 mr-2' /> Smart Contracts - See the code that secures your funds
             </Link>
           </li>
           <li>
+            {/* Cyan-primary link color */}
             <Link href="/docs/faq" className='text-cyan-primary-600 hover:text-cyan-primary-700 flex items-center'>
               <ArrowRight className='h-4 w-4 mr-2' /> FAQ - Address your security concerns
             </Link>

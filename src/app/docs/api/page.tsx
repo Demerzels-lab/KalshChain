@@ -45,7 +45,7 @@ export default function ApiPage() {
   -H 'Authorization: Bearer YOUR_ANON_KEY'`}
         />
 
-        <h3 className="text-xl font-semibold text-slate-900 mb-3 mt-6">GET /kalshchain_markets?id=eq.{id}</h3>
+        <h3 className="text-xl font-semibold text-slate-900 mb-3 mt-6">GET /kalshchain_markets?id=eq.&#123;id&#125;</h3>
         <p className="text-slate-700">
           Retrieves a single market by its unique ID.
         </p>

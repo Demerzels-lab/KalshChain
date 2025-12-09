@@ -26,7 +26,7 @@ export default function TradingEnginePage() {
           code={`P_{YES} = y / (x + y)`}
         />
         <p className="text-slate-700">
-          Where <code className='text-cyan-primary-600 font-mono'>x</code> is the YES reserve and <code className='text-cyan-primary-600 font-mono'>y</code> is the NO reserve. The price of a NO share is always <code className='text-cyan-primary-600 font-mono'>1 - P_{YES}</code>.
+          Where <code className='text-cyan-primary-600 font-mono'>x</code> is the YES reserve and <code className='text-cyan-primary-600 font-mono'>y</code> is the NO reserve. The price of a NO share is always <code className='text-cyan-primary-600 font-mono'>{"1 - P_{YES}"}</code>.
         </p>
       </section>
 
