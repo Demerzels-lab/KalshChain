@@ -56,7 +56,6 @@ export function TradingPanel({ market, pool, onTradeComplete }: TradingPanelProp
     return (
       <Card className="border-gray-200">
         <CardContent className="p-8 text-center">
-          {/* Updated disconnected icon styling for light theme */}
           <div className="mb-4 mx-auto w-16 h-16 rounded-full bg-slate-100 flex items-center justify-center">
             <Lock className="h-8 w-8 text-slate-500" />
           </div>
@@ -64,7 +63,6 @@ export function TradingPanel({ market, pool, onTradeComplete }: TradingPanelProp
           <p className="text-sm text-slate-600 mb-6">
             You need a Phantom wallet to trade on this market
           </p>
-          {/* Cyan-primary button */}
           <WalletMultiButton className="!bg-cyan-primary-600 hover:!bg-cyan-primary-700 !rounded-lg !mx-auto" />
         </CardContent>
       </Card>
@@ -75,7 +73,6 @@ export function TradingPanel({ market, pool, onTradeComplete }: TradingPanelProp
     <Card className="border-gray-200">
       <CardHeader className="pb-4">
         <CardTitle className="flex items-center justify-between">
-          {/* Inverted text color */}
           <span className='text-slate-900'>Trading Panel</span>
           <div className="flex gap-2">
             <Button
@@ -159,7 +156,6 @@ export function TradingPanel({ market, pool, onTradeComplete }: TradingPanelProp
         </div>
 
         {quote && (
-          {/* Inverted quote panel styling */}
           <div className="p-4 rounded-lg bg-slate-100 space-y-2">
             <div className="flex justify-between text-sm">
               <span className="text-slate-600">Estimated Price</span>
