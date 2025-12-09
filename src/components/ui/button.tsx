@@ -1,3 +1,4 @@
+// demerzels-lab/kalshchain/KalshChain-237051255d46360ee0eab8d0278534895dc525cf/src/components/ui/button.tsx
 import { forwardRef, ButtonHTMLAttributes } from 'react';
 import { cva, type VariantProps } from 'class-variance-authority';
 import { cn } from '@/lib/utils';
@@ -7,12 +8,14 @@ const buttonVariants = cva(
   {
     variants: {
       variant: {
-        default: 'bg-indigo-600 text-white hover:bg-indigo-700 focus-visible:ring-indigo-500',
+        // Change from indigo to cyan-primary
+        default: 'bg-cyan-primary-600 text-white hover:bg-cyan-primary-700 focus-visible:ring-cyan-primary-500',
         yes: 'bg-emerald-600 text-white hover:bg-emerald-700 focus-visible:ring-emerald-500',
         no: 'bg-rose-600 text-white hover:bg-rose-700 focus-visible:ring-rose-500',
         outline: 'border border-slate-700 bg-transparent hover:bg-slate-800 text-slate-200',
         ghost: 'hover:bg-slate-800 text-slate-300',
-        link: 'text-indigo-400 underline-offset-4 hover:underline',
+        // Change from indigo to cyan-primary
+        link: 'text-cyan-primary-400 underline-offset-4 hover:underline',
       },
       size: {
         default: 'h-10 px-4 py-2',

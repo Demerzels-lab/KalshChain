@@ -16,7 +16,8 @@ export function MarketCard({ market }: MarketCardProps) {
 
   return (
     <Link href={`/markets/${market.id}`}>
-      <Card className="h-full hover:border-indigo-500/50 transition-all duration-300 hover:shadow-indigo-500/10 hover:shadow-lg group">
+      {/* Updated hover and shadow to cyan-primary */}
+      <Card className="h-full hover:border-cyan-primary-500/50 transition-all duration-300 hover:shadow-cyan-primary-500/10 hover:shadow-lg group">
         <div className="p-5">
           <div className="flex items-start justify-between gap-3 mb-4">
             <span className={`px-2.5 py-1 rounded-full text-xs font-medium border ${getCategoryColor(market.category)}`}>
@@ -29,24 +30,28 @@ export function MarketCard({ market }: MarketCardProps) {
             )}
           </div>
 
-          <h3 className="text-base font-semibold text-white mb-3 line-clamp-2 group-hover:text-indigo-300 transition-colors">
+          {/* Inverted text color and hover text color to cyan-primary */}
+          <h3 className="text-base font-semibold text-slate-900 mb-3 line-clamp-2 group-hover:text-cyan-primary-700 transition-colors">
             {market.title}
           </h3>
 
           <div className="space-y-3">
             <div className="flex items-center gap-3">
-              <div className="flex-1 h-2.5 bg-slate-800 rounded-full overflow-hidden">
+              {/* Inverted background color for sentiment bar */}
+              <div className="flex-1 h-2.5 bg-slate-200 rounded-full overflow-hidden">
                 <div
                   className="h-full bg-gradient-to-r from-emerald-500 to-emerald-400 rounded-full transition-all duration-500"
                   style={{ width: `${yesPercent}%` }}
                 />
               </div>
-              <span className="text-sm font-medium text-emerald-400 min-w-[50px] text-right">
+              {/* Text color remains emerald for YES price */}
+              <span className="text-sm font-medium text-emerald-600 min-w-[50px] text-right">
                 {formatPercent(market.yes_price)}
               </span>
             </div>
 
-            <div className="flex items-center justify-between text-xs text-slate-400">
+            {/* Inverted text color */}
+            <div className="flex items-center justify-between text-xs text-slate-600">
               <div className="flex items-center gap-1">
                 <Clock className="h-3.5 w-3.5" />
                 {timeRemaining}
@@ -57,18 +62,20 @@ export function MarketCard({ market }: MarketCardProps) {
                   ${formatNumber(Number(market.total_volume))}
                 </div>
                 <div className="flex items-center gap-1">
-                  <Droplets className="h-3.5 w-3.5 text-indigo-400" />
+                  {/* Updated icon color to cyan-primary */}
+                  <Droplets className="h-3.5 w-3.5 text-cyan-primary-600" />
                   On-Chain
                 </div>
               </div>
             </div>
           </div>
 
-          <div className="mt-4 pt-4 border-t border-slate-800 flex gap-2">
-            <button className="flex-1 py-2 rounded-lg bg-emerald-600/20 text-emerald-400 text-sm font-medium hover:bg-emerald-600/30 transition-colors">
+          {/* Updated button styles for light theme */}
+          <div className="mt-4 pt-4 border-t border-gray-200 flex gap-2">
+            <button className="flex-1 py-2 rounded-lg bg-emerald-500/10 text-emerald-600 text-sm font-medium hover:bg-emerald-500/20 transition-colors">
               Yes {formatPercent(market.yes_price)}
             </button>
-            <button className="flex-1 py-2 rounded-lg bg-rose-600/20 text-rose-400 text-sm font-medium hover:bg-rose-600/30 transition-colors">
+            <button className="flex-1 py-2 rounded-lg bg-rose-500/10 text-rose-600 text-sm font-medium hover:bg-rose-500/20 transition-colors">
               No {formatPercent(market.no_price)}
             </button>
           </div>

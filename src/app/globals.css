@@ -3,13 +3,14 @@
 @tailwind utilities;
 
 :root {
-  --background: #020617;
-  --foreground: #f8fafc;
+  --background: #ffffff; /* White background */
+  --foreground: #020617; /* Slate-950 for text */
 }
 
 * {
   scrollbar-width: thin;
-  scrollbar-color: #334155 #0f172a;
+  /* Scrollbar visible on white background */
+  scrollbar-color: #94a3b8 #f1f5f9; /* slate-400 on slate-100 */
 }
 
 *::-webkit-scrollbar {
@@ -18,16 +19,16 @@
 }
 
 *::-webkit-scrollbar-track {
-  background: #0f172a;
+  background: #f1f5f9; /* slate-100 */
 }
 
 *::-webkit-scrollbar-thumb {
-  background: #334155;
+  background: #94a3b8; /* slate-400 */
   border-radius: 4px;
 }
 
 *::-webkit-scrollbar-thumb:hover {
-  background: #475569;
+  background: #64748b; /* slate-600 */
 }
 
 body {
@@ -42,20 +43,26 @@ body {
 }
 
 .wallet-adapter-modal-wrapper {
-  background: #0f172a !important;
-  border: 1px solid #1e293b !important;
+  /* Adjust modal for light theme contrast */
+  background: #f8fafc !important; /* slate-50 */
+  border: 1px solid #e2e8f0 !important; /* slate-200 */
 }
 
 .wallet-adapter-modal-title {
-  color: #f8fafc !important;
+  color: #020617 !important; /* slate-950 */
 }
 
 .wallet-adapter-modal-list li {
-  background: #1e293b !important;
+  background: #f1f5f9 !important; /* slate-100 */
 }
 
 .wallet-adapter-modal-list li:hover {
-  background: #334155 !important;
+  background: #e2e8f0 !important; /* slate-200 */
+}
+
+/* Apply new accent color to the connect button in the modal */
+.wallet-adapter-button-trigger {
+  background-color: #0891b2 !important; /* cyan-primary-600 */
 }
 
 @layer utilities {

@@ -1,3 +1,4 @@
+// demerzels-lab/kalshchain/KalshChain-237051255d46360ee0eab8d0278534895dc525cf/src/app/layout.tsx
 import type { Metadata } from 'next';
 import localFont from 'next/font/local';
 import './globals.css';
@@ -32,9 +33,10 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className="dark">
+    <html lang="en">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased bg-slate-950 text-white min-h-screen`}
+        // Inverted body classes for light theme
+        className={`${geistSans.variable} ${geistMono.variable} antialiased bg-white text-slate-900 min-h-screen`}
       >
         <WalletProvider>
           <Navbar />

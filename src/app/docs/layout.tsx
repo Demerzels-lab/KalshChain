@@ -1,23 +1,22 @@
+// demerzels-lab/kalshchain/KalshChain-237051255d46360ee0eab8d0278534895dc525cf/src/app/docs/layout.tsx
 import { DocsSidebar } from '@/components/docs/DocsSidebar';
-import { Toaster } from 'react-hot-toast';
 
-export default function DocsLayout({ children }: { children: React.ReactNode }) {
+export default function DocsLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
   return (
-    <div className="flex min-h-screen bg-slate-950">
-      <DocsSidebar />
-      <main className="flex-1 max-w-5xl mx-auto px-8 py-8">
-        {children}
-      </main>
-      <Toaster
-        position="bottom-right"
-        toastOptions={{
-          style: {
-            background: '#1e293b',
-            color: '#fff',
-            border: '1px solid #334155',
-          },
-        }}
-      />
+    // Inverted layout background
+    <div className="bg-white">
+      <div className="max-w-7xl mx-auto flex">
+        <DocsSidebar />
+        
+        {/* Inverted content area background for a clean look */}
+        <div className="flex-1 min-h-[calc(100vh-64px)] p-6 lg:p-10 bg-white">
+          {children}
+        </div>
+      </div>
     </div>
   );
 }

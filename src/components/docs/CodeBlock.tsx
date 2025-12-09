@@ -1,69 +1,54 @@
-'use client';
-
+// demerzels-lab/kalshchain/KalshChain-237051255d46360ee0eab8d0278534895dc525cf/src/components/docs/CodeBlock.tsx
 import { useState } from 'react';
-import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
-import { vscDarkPlus } from 'react-syntax-highlighter/dist/esm/styles/prism';
 import { Copy, Check } from 'lucide-react';
-import toast from 'react-hot-toast';
 
 interface CodeBlockProps {
   code: string;
   language: string;
   filename?: string;
-  showLineNumbers?: boolean;
 }
 
-export function CodeBlock({ code, language, filename, showLineNumbers = true }: CodeBlockProps) {
+export function CodeBlock({ code, language, filename }: CodeBlockProps) {
   const [copied, setCopied] = useState(false);
 
-  const handleCopy = async () => {
-    await navigator.clipboard.writeText(code);
+  const handleCopy = () => {
+    navigator.clipboard.writeText(code);
     setCopied(true);
-    toast.success('Code copied to clipboard!');
     setTimeout(() => setCopied(false), 2000);
   };
 
   return (
-    <div className="relative rounded-lg overflow-hidden border border-slate-700 bg-[#1e1e1e] my-4">
-      {filename && (
-        <div className="flex items-center justify-between px-4 py-2 bg-slate-800/50 border-b border-slate-700">
-          <span className="text-sm text-slate-400 font-mono">{filename}</span>
-          <button
-            onClick={handleCopy}
-            className="p-1.5 rounded hover:bg-slate-700 transition-colors text-slate-400 hover:text-white"
-            title="Copy code"
-          >
-            {copied ? <Check className="h-4 w-4 text-emerald-400" /> : <Copy className="h-4 w-4" />}
-          </button>
-        </div>
-      )}
-      {!filename && (
+    // Inverted code block styling: Light background, light border, dark text
+    <div className="rounded-lg border border-slate-200 shadow-md my-6 overflow-hidden">
+      {/* Header: Light background, darker text */}
+      <div className="flex justify-between items-center px-4 py-2 bg-slate-100 border-b border-slate-200">
+        <span className="text-xs text-slate-600 font-mono">
+          {filename || `${language} code`}
+        </span>
+        {/* Cyan-primary hover accent for copy button */}
         <button
           onClick={handleCopy}
-          className="absolute top-2 right-2 p-2 rounded bg-slate-800 hover:bg-slate-700 transition-colors text-slate-400 hover:text-white z-10"
-          title="Copy code"
+          className="text-slate-500 hover:text-cyan-primary-600 transition-colors flex items-center gap-1 text-xs"
         >
-          {copied ? <Check className="h-4 w-4 text-emerald-400" /> : <Copy className="h-4 w-4" />}
+          {copied ? (
+            <>
+              <Check className="h-3.5 w-3.5" />
+              Copied!
+            </>
+          ) : (
+            <>
+              <Copy className="h-3.5 w-3.5" />
+              Copy
+            </>
+          )}
         </button>
-      )}
-      <SyntaxHighlighter
-        language={language}
-        style={vscDarkPlus}
-        showLineNumbers={showLineNumbers}
-        customStyle={{
-          margin: 0,
-          padding: '1.5rem',
-          background: '#1e1e1e',
-          fontSize: '0.875rem',
-        }}
-        codeTagProps={{
-          style: {
-            fontFamily: 'ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace',
-          }
-        }}
-      >
-        {code}
-      </SyntaxHighlighter>
+      </div>
+      {/* Code area: White background, dark text */}
+      <pre className="p-4 bg-white overflow-x-auto">
+        <code className="text-sm text-slate-900 whitespace-pre-wrap font-mono">
+          {code}
+        </code>
+      </pre>
     </div>
   );
 }

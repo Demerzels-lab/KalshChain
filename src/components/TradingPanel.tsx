@@ -54,26 +54,29 @@ export function TradingPanel({ market, pool, onTradeComplete }: TradingPanelProp
 
   if (!connected) {
     return (
-      <Card className="border-slate-700">
+      <Card className="border-gray-200">
         <CardContent className="p-8 text-center">
-          <div className="mb-4 mx-auto w-16 h-16 rounded-full bg-slate-800 flex items-center justify-center">
+          {/* Updated disconnected icon styling for light theme */}
+          <div className="mb-4 mx-auto w-16 h-16 rounded-full bg-slate-100 flex items-center justify-center">
             <Lock className="h-8 w-8 text-slate-500" />
           </div>
-          <h3 className="text-lg font-semibold text-white mb-2">Connect Wallet to Trade</h3>
-          <p className="text-sm text-slate-400 mb-6">
+          <h3 className="text-lg font-semibold text-slate-900 mb-2">Connect Wallet to Trade</h3>
+          <p className="text-sm text-slate-600 mb-6">
             You need a Phantom wallet to trade on this market
           </p>
-          <WalletMultiButton className="!bg-indigo-600 hover:!bg-indigo-700 !rounded-lg !mx-auto" />
+          {/* Cyan-primary button */}
+          <WalletMultiButton className="!bg-cyan-primary-600 hover:!bg-cyan-primary-700 !rounded-lg !mx-auto" />
         </CardContent>
       </Card>
     );
   }
 
   return (
-    <Card className="border-slate-700">
+    <Card className="border-gray-200">
       <CardHeader className="pb-4">
         <CardTitle className="flex items-center justify-between">
-          <span>Trading Panel</span>
+          {/* Inverted text color */}
+          <span className='text-slate-900'>Trading Panel</span>
           <div className="flex gap-2">
             <Button
               variant={side === 'BUY' ? 'default' : 'outline'}
@@ -100,38 +103,44 @@ export function TradingPanel({ market, pool, onTradeComplete }: TradingPanelProp
             className={`p-4 rounded-xl border-2 transition-all ${
               outcome === 'YES'
                 ? 'border-emerald-500 bg-emerald-500/10'
-                : 'border-slate-700 bg-slate-800/50 hover:border-slate-600'
+                : 'border-slate-300 bg-slate-100 hover:border-slate-400' // Inverted passive button colors
             }`}
           >
-            <div className="text-2xl font-bold text-emerald-400 mb-1">
+            {/* Text color remains emerald for YES/NO price */}
+            <div className="text-2xl font-bold text-emerald-600 mb-1">
               {formatPercent(market.yes_price)}
             </div>
-            <div className="text-sm text-slate-400">YES</div>
+            {/* Inverted text color */}
+            <div className="text-sm text-slate-600">YES</div>
           </button>
           <button
             onClick={() => setOutcome('NO')}
             className={`p-4 rounded-xl border-2 transition-all ${
               outcome === 'NO'
                 ? 'border-rose-500 bg-rose-500/10'
-                : 'border-slate-700 bg-slate-800/50 hover:border-slate-600'
+                : 'border-slate-300 bg-slate-100 hover:border-slate-400' // Inverted passive button colors
             }`}
           >
-            <div className="text-2xl font-bold text-rose-400 mb-1">
+            {/* Text color remains rose for YES/NO price */}
+            <div className="text-2xl font-bold text-rose-600 mb-1">
               {formatPercent(market.no_price)}
             </div>
-            <div className="text-sm text-slate-400">NO</div>
+            {/* Inverted text color */}
+            <div className="text-sm text-slate-600">NO</div>
           </button>
         </div>
 
         <div>
-          <label className="block text-sm font-medium text-slate-300 mb-2">
+          {/* Inverted text color */}
+          <label className="block text-sm font-medium text-slate-700 mb-2">
             Number of Shares
           </label>
+          {/* Inverted input styling */}
           <input
             type="number"
             value={quantity}
             onChange={(e) => setQuantity(e.target.value)}
-            className="w-full px-4 py-3 rounded-lg bg-slate-800 border border-slate-700 text-white text-lg font-medium focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
+            className="w-full px-4 py-3 rounded-lg bg-slate-100 border border-slate-300 text-slate-900 text-lg font-medium focus:outline-none focus:ring-2 focus:ring-cyan-primary-500 focus:border-transparent"
             placeholder="0"
             min="0"
           />
@@ -140,7 +149,8 @@ export function TradingPanel({ market, pool, onTradeComplete }: TradingPanelProp
               <button
                 key={val}
                 onClick={() => setQuantity(val.toString())}
-                className="flex-1 py-1.5 text-sm rounded-md bg-slate-800 text-slate-400 hover:bg-slate-700 hover:text-white transition-colors"
+                // Inverted secondary button styling
+                className="flex-1 py-1.5 text-sm rounded-md bg-slate-200 text-slate-600 hover:bg-slate-300 hover:text-slate-900 transition-colors"
               >
                 {val}
               </button>
@@ -149,25 +159,27 @@ export function TradingPanel({ market, pool, onTradeComplete }: TradingPanelProp
         </div>
 
         {quote && (
-          <div className="p-4 rounded-lg bg-slate-800/50 space-y-2">
+          {/* Inverted quote panel styling */}
+          <div className="p-4 rounded-lg bg-slate-100 space-y-2">
             <div className="flex justify-between text-sm">
-              <span className="text-slate-400">Estimated Price</span>
-              <span className="text-white font-medium">{formatCurrency(quote.price)}</span>
+              <span className="text-slate-600">Estimated Price</span>
+              <span className="text-slate-900 font-medium">{formatCurrency(quote.price)}</span>
             </div>
             <div className="flex justify-between text-sm">
-              <span className="text-slate-400">Total Cost</span>
-              <span className="text-white font-medium">{formatCurrency(quote.cost)}</span>
+              <span className="text-slate-600">Total Cost</span>
+              <span className="text-slate-900 font-medium">{formatCurrency(quote.cost)}</span>
             </div>
             <div className="flex justify-between text-sm">
-              <span className="text-slate-400">Fee (2%)</span>
-              <span className="text-slate-400">{formatCurrency(quote.fee)}</span>
+              <span className="text-slate-600">Fee (2%)</span>
+              <span className="text-slate-600">{formatCurrency(quote.fee)}</span>
             </div>
-            <div className="flex justify-between text-sm pt-2 border-t border-slate-700">
-              <span className="text-slate-300 font-medium">Total</span>
-              <span className="text-indigo-400 font-semibold">{formatCurrency(quote.total)}</span>
+            <div className="flex justify-between text-sm pt-2 border-t border-slate-300">
+              <span className="text-slate-700 font-medium">Total</span>
+              {/* Cyan-primary accent for total */}
+              <span className="text-cyan-primary-700 font-semibold">{formatCurrency(quote.total)}</span>
             </div>
             {quote.priceImpact > 0.01 && (
-              <div className="flex items-center gap-2 text-amber-400 text-xs mt-2">
+              <div className="flex items-center gap-2 text-amber-600 text-xs mt-2">
                 <AlertCircle className="h-4 w-4" />
                 Price Impact: {(quote.priceImpact * 100).toFixed(2)}%
               </div>
@@ -176,14 +188,14 @@ export function TradingPanel({ market, pool, onTradeComplete }: TradingPanelProp
         )}
 
         {error && (
-          <div className="flex items-center gap-2 p-3 rounded-lg bg-rose-500/10 border border-rose-500/30 text-rose-400 text-sm">
+          <div className="flex items-center gap-2 p-3 rounded-lg bg-rose-500/10 border border-rose-500/30 text-rose-600 text-sm">
             <AlertCircle className="h-4 w-4 flex-shrink-0" />
             {error}
           </div>
         )}
 
         {success && (
-          <div className="flex items-center gap-2 p-3 rounded-lg bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 text-sm">
+          <div className="flex items-center gap-2 p-3 rounded-lg bg-emerald-500/10 border border-emerald-500/30 text-emerald-600 text-sm">
             <CheckCircle2 className="h-4 w-4 flex-shrink-0" />
             {success}
           </div>

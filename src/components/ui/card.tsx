@@ -6,7 +6,8 @@ const Card = forwardRef<HTMLDivElement, HTMLAttributes<HTMLDivElement>>(
     <div
       ref={ref}
       className={cn(
-        'rounded-xl border border-slate-800 bg-slate-900/50 backdrop-blur-sm shadow-lg',
+        // Inverted Card Styling: Lighter border, white background, subtle shadow
+        'rounded-xl border border-gray-200 bg-white/90 backdrop-blur-sm shadow-sm',
         className
       )}
       {...props}
@@ -24,14 +25,16 @@ CardHeader.displayName = 'CardHeader';
 
 const CardTitle = forwardRef<HTMLParagraphElement, HTMLAttributes<HTMLHeadingElement>>(
   ({ className, ...props }, ref) => (
-    <h3 ref={ref} className={cn('text-lg font-semibold text-white', className)} {...props} />
+    // Inverted text color from white to dark slate
+    <h3 ref={ref} className={cn('text-lg font-semibold text-slate-900', className)} {...props} />
   )
 );
 CardTitle.displayName = 'CardTitle';
 
 const CardDescription = forwardRef<HTMLParagraphElement, HTMLAttributes<HTMLParagraphElement>>(
   ({ className, ...props }, ref) => (
-    <p ref={ref} className={cn('text-sm text-slate-400', className)} {...props} />
+    // Inverted text color from slate-400 to slate-600
+    <p ref={ref} className={cn('text-sm text-slate-600', className)} {...props} />
   )
 );
 CardDescription.displayName = 'CardDescription';

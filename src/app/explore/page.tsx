@@ -60,21 +60,25 @@ export default function ExplorePage() {
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
       <div className="mb-8">
-        <h1 className="text-3xl font-bold text-white mb-2">Explore Markets</h1>
-        <p className="text-slate-400">Discover and trade on various prediction markets</p>
+        {/* Inverted text color */}
+        <h1 className="text-3xl font-bold text-slate-900 mb-2">Explore Markets</h1>
+        <p className="text-slate-600">Discover and trade on various prediction markets</p>
       </div>
 
       {/* Filters */}
+      {/* Card styling is already inverted by global component updates */}
       <Card className="p-4 mb-8">
         <div className="flex flex-col lg:flex-row gap-4">
           <div className="flex-1 relative">
-            <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-slate-400" />
+            {/* Inverted icon color */}
+            <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-slate-500" />
             <input
               type="text"
               placeholder="Search markets..."
               value={search}
               onChange={(e) => setSearch(e.target.value)}
-              className="w-full pl-10 pr-4 py-2.5 rounded-lg bg-slate-800 border border-slate-700 text-white placeholder:text-slate-500 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+              // Inverted input styling and cyan-primary focus ring
+              className="w-full pl-10 pr-4 py-2.5 rounded-lg bg-slate-100 border border-slate-300 text-slate-900 placeholder:text-slate-500 focus:outline-none focus:ring-2 focus:ring-cyan-primary-500"
             />
           </div>
 
@@ -82,7 +86,8 @@ export default function ExplorePage() {
             <select
               value={category}
               onChange={(e) => setCategory(e.target.value)}
-              className="px-4 py-2.5 rounded-lg bg-slate-800 border border-slate-700 text-white focus:outline-none focus:ring-2 focus:ring-indigo-500"
+              // Inverted select styling and cyan-primary focus ring
+              className="px-4 py-2.5 rounded-lg bg-slate-100 border border-slate-300 text-slate-900 focus:outline-none focus:ring-2 focus:ring-cyan-primary-500"
             >
               {categories.map(c => <option key={c} value={c}>{c}</option>)}
             </select>
@@ -90,7 +95,8 @@ export default function ExplorePage() {
             <select
               value={marketType}
               onChange={(e) => setMarketType(e.target.value)}
-              className="px-4 py-2.5 rounded-lg bg-slate-800 border border-slate-700 text-white focus:outline-none focus:ring-2 focus:ring-indigo-500"
+              // Inverted select styling and cyan-primary focus ring
+              className="px-4 py-2.5 rounded-lg bg-slate-100 border border-slate-300 text-slate-900 focus:outline-none focus:ring-2 focus:ring-cyan-primary-500"
             >
               {marketTypes.map(t => <option key={t} value={t}>{t}</option>)}
             </select>
@@ -98,21 +104,24 @@ export default function ExplorePage() {
             <select
               value={sortBy}
               onChange={(e) => setSortBy(e.target.value)}
-              className="px-4 py-2.5 rounded-lg bg-slate-800 border border-slate-700 text-white focus:outline-none focus:ring-2 focus:ring-indigo-500"
+              // Inverted select styling and cyan-primary focus ring
+              className="px-4 py-2.5 rounded-lg bg-slate-100 border border-slate-300 text-slate-900 focus:outline-none focus:ring-2 focus:ring-cyan-primary-500"
             >
               {sortOptions.map(s => <option key={s} value={s}>{s}</option>)}
             </select>
 
-            <div className="flex gap-1 p-1 rounded-lg bg-slate-800 border border-slate-700">
+            <div className="flex gap-1 p-1 rounded-lg bg-slate-100 border border-slate-300">
               <button
                 onClick={() => setViewMode('grid')}
-                className={`p-2 rounded ${viewMode === 'grid' ? 'bg-indigo-600 text-white' : 'text-slate-400 hover:text-white'}`}
+                // Cyan-primary accent for active button, inverted text for inactive
+                className={`p-2 rounded ${viewMode === 'grid' ? 'bg-cyan-primary-600 text-white' : 'text-slate-600 hover:text-slate-900'}`}
               >
                 <LayoutGrid className="h-5 w-5" />
               </button>
               <button
                 onClick={() => setViewMode('list')}
-                className={`p-2 rounded ${viewMode === 'list' ? 'bg-indigo-600 text-white' : 'text-slate-400 hover:text-white'}`}
+                // Cyan-primary accent for active button, inverted text for inactive
+                className={`p-2 rounded ${viewMode === 'list' ? 'bg-cyan-primary-600 text-white' : 'text-slate-600 hover:text-slate-900'}`}
               >
                 <List className="h-5 w-5" />
               </button>
@@ -122,19 +131,22 @@ export default function ExplorePage() {
       </Card>
 
       {/* Results */}
-      <div className="mb-4 text-sm text-slate-400">
+      {/* Inverted text color */}
+      <div className="mb-4 text-sm text-slate-600">
         {filteredMarkets.length} markets found
       </div>
 
       {loading ? (
         <div className="flex items-center justify-center py-20">
-          <Loader2 className="h-8 w-8 animate-spin text-indigo-500" />
+          {/* Cyan-primary spinner color */}
+          <Loader2 className="h-8 w-8 animate-spin text-cyan-primary-500" />
         </div>
       ) : filteredMarkets.length === 0 ? (
         <Card className="p-12 text-center">
-          <Filter className="h-12 w-12 text-slate-600 mx-auto mb-4" />
-          <h3 className="text-lg font-semibold text-white mb-2">No Results</h3>
-          <p className="text-slate-400">Try adjusting your search filters</p>
+          <Filter className="h-12 w-12 text-slate-400 mx-auto mb-4" />
+          {/* Inverted text color */}
+          <h3 className="text-lg font-semibold text-slate-900 mb-2">No Results</h3>
+          <p className="text-slate-600">Try adjusting your search filters</p>
         </Card>
       ) : (
         <div className={`grid gap-5 ${viewMode === 'grid' ? 'grid-cols-1 md:grid-cols-2 lg:grid-cols-3' : 'grid-cols-1'}`}>

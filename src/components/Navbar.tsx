@@ -1,3 +1,4 @@
+// demerzels-lab/kalshchain/KalshChain-237051255d46360ee0eab8d0278534895dc525cf/src/components/Navbar.tsx
 'use client';
 
 import Link from 'next/link';
@@ -27,19 +28,19 @@ export function Navbar() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   return (
-    <nav className="sticky top-0 z-50 border-b border-slate-800 bg-slate-950/80 backdrop-blur-xl">
+    <nav className="sticky top-0 z-50 border-b border-gray-200 bg-white/90 backdrop-blur-md">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="flex h-16 items-center justify-between">
           <div className="flex items-center gap-8">
             <Link href="/" className="flex items-center gap-2">
-              <div className="h-8 w-8 rounded-lg overflow-hidden bg-gradient-to-br from-indigo-500 to-purple-600 flex items-center justify-center">
+              <div className="h-8 w-8 rounded-lg overflow-hidden bg-gradient-to-br from-cyan-primary-300 to-cyan-primary-600 flex items-center justify-center">
                 <img
                   src="/logo.jpeg"
                   alt="KalshChain Logo"
                   className="h-6 w-6 object-cover"
                 />
               </div>
-              <span className="text-xl font-bold bg-gradient-to-r from-indigo-400 to-purple-400 bg-clip-text text-transparent">
+              <span className="text-xl font-bold bg-gradient-to-r from-cyan-primary-600 to-cyan-primary-900 bg-clip-text text-transparent">
                 KalshChain
               </span>
             </Link>
@@ -55,8 +56,8 @@ export function Navbar() {
                     className={cn(
                       'flex items-center gap-2 px-3 py-2 rounded-lg text-sm font-medium transition-colors',
                       isActive
-                        ? 'bg-indigo-600/20 text-indigo-400'
-                        : 'text-slate-400 hover:text-white hover:bg-slate-800'
+                        ? 'bg-cyan-primary-500/20 text-cyan-primary-700'
+                        : 'text-slate-600 hover:text-slate-900 hover:bg-slate-100'
                     )}
                   >
                     <Icon className="h-4 w-4" />
@@ -79,8 +80,8 @@ export function Navbar() {
                     className={cn(
                       'flex items-center gap-2 px-3 py-2 rounded-lg text-sm font-medium transition-colors',
                       isActive
-                        ? 'bg-indigo-600/20 text-indigo-400'
-                        : 'text-slate-400 hover:text-white hover:bg-slate-800'
+                        ? 'bg-cyan-primary-500/20 text-cyan-primary-700'
+                        : 'text-slate-600 hover:text-slate-900 hover:bg-slate-100'
                     )}
                   >
                     <Icon className="h-4 w-4" />
@@ -93,13 +94,15 @@ export function Navbar() {
             {connected && (
               <div className="hidden sm:flex items-center gap-2 px-3 py-1.5 rounded-lg bg-emerald-500/10 border border-emerald-500/20">
                 <div className="h-2 w-2 rounded-full bg-emerald-500 animate-pulse" />
-                <span className="text-xs text-emerald-400">Connected</span>
+                <span className="text-xs text-emerald-600">Connected</span>
               </div>
             )}
-            <WalletMultiButton className="!bg-indigo-600 hover:!bg-indigo-700 !rounded-lg !h-10 !text-sm" />
+            {/* Wallet Button: Uses cyan-primary as default button variant */}
+            <WalletMultiButton className="!bg-cyan-primary-600 hover:!bg-cyan-primary-700 !rounded-lg !h-10 !text-sm" />
             
+            {/* Mobile Menu Button: Darker icon on light background */}
             <button
-              className="lg:hidden p-2 text-slate-400 hover:text-white"
+              className="lg:hidden p-2 text-slate-600 hover:text-slate-900"
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
             >
               {mobileMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
@@ -109,7 +112,7 @@ export function Navbar() {
       </div>
 
       {mobileMenuOpen && (
-        <div className="lg:hidden border-t border-slate-800 bg-slate-950 px-4 py-4">
+        <div className="lg:hidden border-t border-gray-200 bg-white px-4 py-4">
           <div className="text-xs text-slate-500 uppercase tracking-wider mb-2 px-3">Navigation</div>
           {navItems.map((item) => {
             const Icon = item.icon;
@@ -118,7 +121,8 @@ export function Navbar() {
                 key={item.href}
                 href={item.href}
                 onClick={() => setMobileMenuOpen(false)}
-                className="flex items-center gap-3 px-3 py-3 rounded-lg text-slate-300 hover:bg-slate-800"
+                // Mobile Link Style: Darker text, light hover background
+                className="flex items-center gap-3 px-3 py-3 rounded-lg text-slate-700 hover:bg-slate-100"
               >
                 <Icon className="h-5 w-5" />
                 {item.label}
@@ -133,7 +137,8 @@ export function Navbar() {
                 key={item.href}
                 href={item.href}
                 onClick={() => setMobileMenuOpen(false)}
-                className="flex items-center gap-3 px-3 py-3 rounded-lg text-slate-300 hover:bg-slate-800"
+                // Mobile Link Style: Darker text, light hover background
+                className="flex items-center gap-3 px-3 py-3 rounded-lg text-slate-700 hover:bg-slate-100"
               >
                 <Icon className="h-5 w-5" />
                 {item.label}
