@@ -27,7 +27,10 @@ export default function CreateMarketPage() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!publicKey || !signMessage) return;
+    if (!publicKey || !signMessage || !connected) {
+      setError('Please connect your wallet to create a market');
+      return;
+    }
 
     setLoading(true);
     setError(null);
@@ -93,23 +96,6 @@ export default function CreateMarketPage() {
       setLoading(false);
     }
   };
-
-  if (!connected) {
-    return (
-      <div className="max-w-2xl mx-auto px-4 py-12">
-        <Card className="p-8 text-center">
-          <div className="mb-4 mx-auto w-16 h-16 rounded-full bg-slate-100 flex items-center justify-center">
-            <Lock className="h-8 w-8 text-slate-400" />
-          </div>
-          <h2 className="text-xl font-semibold text-slate-900 mb-2">Connect Wallet</h2>
-          <p className="text-slate-600 mb-6">
-            You need a Phantom wallet to create a prediction market
-          </p>
-          <WalletMultiButton className="!bg-cyan-primary-600 hover:!bg-cyan-primary-700 !rounded-lg !mx-auto" />
-        </Card>
-      </div>
-    );
-  }
 
   if (success) {
     return (
@@ -198,7 +184,7 @@ export default function CreateMarketPage() {
 
             <div>
               <label className="block text-sm font-medium text-slate-700 mb-2">
-                Initial Liquidity (USD)
+                Initial Liquidity (SOL)
               </label>
               <input
                 type="number"
@@ -206,7 +192,10 @@ export default function CreateMarketPage() {
                 onChange={(e) => setInitialLiquidity(e.target.value)}
                 min="100"
                 step="100"
-                className="w-full px-4 py-3 rounded-lg bg-white border border-gray-300 text-slate-900 focus:outline-none focus:ring-2 focus:ring-cyan-primary-500 focus:border-cyan-primary-500"
+                disabled={!connected}
+                className={`w-full px-4 py-3 rounded-lg bg-white border text-slate-900 focus:outline-none focus:ring-2 focus:ring-cyan-primary-500 focus:border-cyan-primary-500 ${
+                  !connected ? 'border-slate-200 bg-slate-50 cursor-not-allowed opacity-50' : 'border-gray-300'
+                }`}
               />
               <p className="text-xs text-slate-500 mt-1">
                 Initial liquidity will be split equally between YES and NO pools
@@ -220,12 +209,14 @@ export default function CreateMarketPage() {
               </div>
             )}
 
-            <Button type="submit" size="lg" className="w-full bg-cyan-primary-600 hover:bg-cyan-primary-700 text-white" disabled={loading}>
+            <Button type="submit" size="lg" className="w-full bg-cyan-primary-600 hover:bg-cyan-primary-700 text-white" disabled={loading || !connected}>
               {loading ? (
                 <>
                   <Loader2 className="mr-2 h-5 w-5 animate-spin" />
                   Creating Market...
                 </>
+              ) : !connected ? (
+                'Connect Wallet to Create Market'
               ) : (
                 'Create Market'
               )}
