@@ -19,6 +19,11 @@ export const metadata: Metadata = {
   title: 'KalshChain - Decentralized Prediction Market Platform',
   description: 'Trade on the future with blockchain transparency. Decentralized prediction markets for crypto, politics, economics, sports, and more. Powered by Solana.',
   keywords: 'prediction market, decentralized, blockchain, Solana, crypto, trading, AMM',
+  icons: {
+    icon: '/logo.jpeg',
+    shortcut: '/logo.jpeg',
+    apple: '/logo.jpeg',
+  },
 };
 
 export default function RootLayout({

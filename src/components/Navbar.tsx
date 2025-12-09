@@ -32,8 +32,12 @@ export function Navbar() {
         <div className="flex h-16 items-center justify-between">
           <div className="flex items-center gap-8">
             <Link href="/" className="flex items-center gap-2">
-              <div className="h-8 w-8 rounded-lg bg-gradient-to-br from-indigo-500 to-purple-600 flex items-center justify-center">
-                <TrendingUp className="h-5 w-5 text-white" />
+              <div className="h-8 w-8 rounded-lg overflow-hidden bg-gradient-to-br from-indigo-500 to-purple-600 flex items-center justify-center">
+                <img
+                  src="/logo.jpeg"
+                  alt="KalshChain Logo"
+                  className="h-6 w-6 object-cover"
+                />
               </div>
               <span className="text-xl font-bold bg-gradient-to-r from-indigo-400 to-purple-400 bg-clip-text text-transparent">
                 KalshChain
