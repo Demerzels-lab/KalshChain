@@ -20,10 +20,15 @@ export const metadata: Metadata = {
   description: 'Trade on the future with blockchain transparency. Decentralized prediction markets for crypto, politics, economics, sports, and more. Powered by Solana.',
   keywords: 'prediction market, decentralized, blockchain, Solana, crypto, trading, AMM',
   icons: {
-    icon: '/logo.jpeg',
+    icon: [
+      { url: '/logo.jpeg', sizes: 'any' },
+      { url: '/logo.jpeg', sizes: '16x16', type: 'image/jpeg' },
+      { url: '/logo.jpeg', sizes: '32x32', type: 'image/jpeg' },
+    ],
     shortcut: '/logo.jpeg',
     apple: '/logo.jpeg',
   },
+  manifest: '/manifest.json',
 };
 
 export default function RootLayout({
