@@ -5,7 +5,9 @@ import { useMarkets } from '@/hooks/useMarkets';
 import { MarketCard } from '@/components/MarketCard';
 import { InteractiveBackground } from '@/components/InteractiveBackground';
 import { LoadingScreen } from '@/components/LoadingScreen';
+import { useLoading } from '@/contexts/LoadingContext';
 import { Button } from '@/components/ui/button';
+import { motion } from 'framer-motion';
 import { TrendingUp, Zap, Shield, ArrowRight, Loader2, Globe, Activity, Construction, Layers, CheckCircle2, Timer, Rocket } from 'lucide-react';
 import Link from 'next/link';
 
@@ -13,8 +15,8 @@ const categories = ['All', 'Crypto', 'Politics', 'Economy', 'Sports', 'AI & Tech
 
 export default function HomePage() {
   const { markets, loading } = useMarkets();
+  const { isLoading, setIsLoading } = useLoading();
   const [activeCategory, setActiveCategory] = useState('All');
-  const [isLoading, setIsLoading] = useState(true);
 
   const filteredMarkets = activeCategory === 'All'
     ? markets
@@ -254,150 +256,209 @@ export default function HomePage() {
 
       {/* --- ROADMAP TIMELINE --- */}
       {/* --- ROADMAP SECTION --- */}
-      <section className="py-24 relative overflow-hidden bg-slate-50/50 border-y border-slate-200">
-        <div className="absolute inset-0 bg-[url('/grid.svg')] opacity-[0.05]" />
-        
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-          <div className="text-center mb-16">
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-cyan-primary-50 border border-cyan-primary-200 text-cyan-primary-700 text-xs font-mono font-bold uppercase tracking-widest mb-4">
-              <Timer className="h-4 w-4" /> Strategic Timeline
+      {/* --- TACTICAL TIMELINE ROADMAP --- */}
+      <section className="py-32 relative overflow-hidden">
+        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+          
+          {/* Section Header */}
+          <div className="text-center mb-20">
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-cyan-primary-500/10 border border-cyan-primary-500/20 text-cyan-primary-600 text-xs font-mono font-bold uppercase tracking-widest mb-4">
+              <Timer className="h-4 w-4" /> 
+              Protocol Sync
             </div>
-            <h2 className="text-3xl sm:text-4xl font-bold text-slate-900 mb-4">Protocol Roadmap</h2>
-            <p className="text-slate-600 max-w-2xl mx-auto">
-              Our phased approach to building the ultimate decentralized prediction layer.
+            <h2 className="text-3xl sm:text-4xl font-bold text-slate-900 mb-4">Mission Timeline</h2>
+            <p className="text-slate-600 max-w-xl mx-auto">
+              Executing our strategic roadmap to decentralize global prediction markets.
             </p>
           </div>
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+          <div className="relative">
+            {/* Central Timeline Spine (Tactical Line) */}
+            <div className="absolute left-4 md:left-1/2 top-0 bottom-0 w-px bg-slate-200 -translate-x-1/2 md:translate-x-0 hidden sm:block" />
             
-            {/* Phase 1: Completed */}
-            <div className="glass-card p-6 border-emerald-500/30 bg-emerald-50/30 shadow-lg shadow-emerald-500/5 hover:-translate-y-1 transition-all duration-300">
-              <div className="flex items-center gap-3 mb-4">
-                <div className="h-10 w-10 rounded-lg bg-emerald-100 flex items-center justify-center text-emerald-600">
-                  <CheckCircle2 className="h-5 w-5" />
+            <div className="space-y-12 sm:space-y-24">
+              
+              {/* --- PHASE 1: Q4 2025 (COMPLETED) --- */}
+              <motion.div 
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: "-100px" }}
+                transition={{ duration: 0.5 }}
+                className="relative flex flex-col md:flex-row items-center justify-between gap-8 group"
+              >
+                {/* Right Side Content (Desktop: Left) */}
+                <div className="w-full md:w-[45%] order-2 md:order-1">
+                  <div className="glass-card p-6 border-emerald-500/30 bg-emerald-50/30 shadow-lg shadow-emerald-500/5 relative overflow-hidden group-hover:-translate-y-1 transition-transform duration-300">
+                    <div className="absolute top-0 right-0 px-3 py-1 bg-emerald-500 text-white text-[10px] font-bold uppercase tracking-widest rounded-bl-lg">
+                      Completed
+                    </div>
+                    <h3 className="text-xl font-bold text-slate-900 mb-2 flex items-center gap-2">
+                      <span className="text-emerald-600">Q4 2025</span>
+                      <span className="h-1 w-1 rounded-full bg-slate-300"/>
+                      Core Platform
+                    </h3>
+                    <ul className="space-y-2.5 mt-4">
+                      {[
+                        'Real-time market data integration',
+                        'On-chain style trading & liquidity pools',
+                        'Phantom Wallet connection',
+                        '20–30 native markets live',
+                        'PnL Dashboard active'
+                      ].map((item, i) => (
+                        <li key={i} className="flex items-start gap-2 text-sm text-slate-700">
+                          <CheckCircle2 className="h-4 w-4 text-emerald-600 shrink-0 mt-0.5" />
+                          <span className="leading-snug">{item}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
                 </div>
-                <div>
-                  <div className="text-xs font-bold text-emerald-600 uppercase tracking-wider">Completed</div>
-                  <div className="text-lg font-bold text-slate-900">Q4 2025</div>
+                
+                {/* Center Node */}
+                <div className="absolute left-4 md:left-1/2 -translate-x-1/2 flex items-center justify-center order-1 md:order-2 hidden sm:flex">
+                  <div className="w-4 h-4 bg-emerald-500 rounded-full shadow-[0_0_0_4px_rgba(16,185,129,0.2)] z-10 group-hover:scale-125 transition-transform duration-300" />
                 </div>
-              </div>
-              <h3 className="text-base font-semibold text-slate-900 mb-4 pb-4 border-b border-emerald-100">
-                Core Platform Live
-              </h3>
-              <ul className="space-y-3">
-                {[
-                  'Real-time market data',
-                  'On-chain AMM & Pools',
-                  'Phantom Wallet Connect',
-                  '30+ Native Markets',
-                  '40+ Kalshi Markets',
-                  'User Market Creation',
-                  'PnL Dashboard'
-                ].map((item, i) => (
-                  <li key={i} className="flex items-start gap-2 text-sm text-slate-600">
-                    <span className="mt-1.5 h-1.5 w-1.5 rounded-full bg-emerald-400 flex-shrink-0" />
-                    {item}
-                  </li>
-                ))}
-              </ul>
-            </div>
 
-            {/* Phase 2: In Progress */}
-            <div className="glass-card p-6 border-amber-500/30 bg-amber-50/30 shadow-lg shadow-amber-500/5 hover:-translate-y-1 transition-all duration-300 relative overflow-hidden">
-              <div className="absolute top-0 right-0 px-3 py-1 bg-amber-500 text-white text-[10px] font-bold uppercase tracking-widest rounded-bl-lg">
-                Current
-              </div>
-              <div className="flex items-center gap-3 mb-4">
-                <div className="h-10 w-10 rounded-lg bg-amber-100 flex items-center justify-center text-amber-600">
-                  <Construction className="h-5 w-5" />
-                </div>
-                <div>
-                  <div className="text-xs font-bold text-amber-600 uppercase tracking-wider">In Progress</div>
-                  <div className="text-lg font-bold text-slate-900">Q1 2026</div>
-                </div>
-              </div>
-              <h3 className="text-base font-semibold text-slate-900 mb-4 pb-4 border-b border-amber-100">
-                Scalability & Social
-              </h3>
-              <ul className="space-y-3">
-                {[
-                  'Fast Data Ingestion',
-                  'User Profiles',
-                  'Public Trade History',
-                  'Market Sentiment',
-                  'Trader Leaderboards',
-                  'Mobile UI v2.0'
-                ].map((item, i) => (
-                  <li key={i} className="flex items-start gap-2 text-sm text-slate-600">
-                    <span className="mt-1.5 h-1.5 w-1.5 rounded-full bg-amber-400 flex-shrink-0" />
-                    {item}
-                  </li>
-                ))}
-              </ul>
-            </div>
+                {/* Empty Spacer for alternating layout */}
+                <div className="w-full md:w-[45%] order-3 hidden md:block" />
+              </motion.div>
 
-            {/* Phase 3: Planned */}
-            <div className="glass-card p-6 border-cyan-primary-200/50 hover:border-cyan-primary-400/50 hover:-translate-y-1 transition-all duration-300 opacity-90 hover:opacity-100">
-              <div className="flex items-center gap-3 mb-4">
-                <div className="h-10 w-10 rounded-lg bg-cyan-primary-100 flex items-center justify-center text-cyan-primary-600">
-                  <Layers className="h-5 w-5" />
-                </div>
-                <div>
-                  <div className="text-xs font-bold text-cyan-primary-600 uppercase tracking-wider">Planned</div>
-                  <div className="text-lg font-bold text-slate-900">Q2 2026</div>
-                </div>
-              </div>
-              <h3 className="text-base font-semibold text-slate-900 mb-4 pb-4 border-b border-slate-100">
-                Advanced Trading
-              </h3>
-              <ul className="space-y-3">
-                {[
-                  'Advanced AMM Curves',
-                  'Dynamic Liquidity',
-                  'Multi-Position Tools',
-                  'Risk Metrics',
-                  'Probability Analytics',
-                  'Strategy Dashboards'
-                ].map((item, i) => (
-                  <li key={i} className="flex items-start gap-2 text-sm text-slate-500">
-                    <span className="mt-1.5 h-1.5 w-1.5 rounded-full bg-slate-300 flex-shrink-0" />
-                    {item}
-                  </li>
-                ))}
-              </ul>
-            </div>
 
-            {/* Phase 4: Expansion */}
-            <div className="glass-card p-6 border-cyan-primary-200/50 hover:border-cyan-primary-400/50 hover:-translate-y-1 transition-all duration-300 opacity-90 hover:opacity-100">
-              <div className="flex items-center gap-3 mb-4">
-                <div className="h-10 w-10 rounded-lg bg-purple-100 flex items-center justify-center text-purple-600">
-                  <Rocket className="h-5 w-5" />
-                </div>
-                <div>
-                  <div className="text-xs font-bold text-purple-600 uppercase tracking-wider">Planned</div>
-                  <div className="text-lg font-bold text-slate-900">Q3 2026</div>
-                </div>
-              </div>
-              <h3 className="text-base font-semibold text-slate-900 mb-4 pb-4 border-b border-slate-100">
-                Protocol Expansion
-              </h3>
-              <ul className="space-y-3">
-                {[
-                  'Real On-Chain Exec',
-                  'Cross-Market Liquidity',
-                  'Developer API',
-                  'Institutional Analytics',
-                  'Market Syndication',
-                  'Ecosystem Partnerships'
-                ].map((item, i) => (
-                  <li key={i} className="flex items-start gap-2 text-sm text-slate-500">
-                    <span className="mt-1.5 h-1.5 w-1.5 rounded-full bg-slate-300 flex-shrink-0" />
-                    {item}
-                  </li>
-                ))}
-              </ul>
-            </div>
+              {/* --- PHASE 2: Q1 2026 (IN PROGRESS) --- */}
+              <motion.div 
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: "-100px" }}
+                transition={{ duration: 0.5, delay: 0.1 }}
+                className="relative flex flex-col md:flex-row items-center justify-between gap-8 group"
+              >
+                {/* Spacer */}
+                <div className="w-full md:w-[45%] order-3 md:order-1 hidden md:block" />
 
+                {/* Center Node */}
+                <div className="absolute left-4 md:left-1/2 -translate-x-1/2 flex items-center justify-center order-1 md:order-2 hidden sm:flex">
+                  <div className="relative flex items-center justify-center z-10">
+                    <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-amber-400 opacity-75"></span>
+                    <div className="w-4 h-4 bg-amber-500 rounded-full shadow-[0_0_0_4px_rgba(245,158,11,0.2)] relative" />
+                  </div>
+                </div>
+
+                {/* Left Side Content (Desktop: Right) */}
+                <div className="w-full md:w-[45%] order-2 md:order-3">
+                  <div className="glass-card p-6 border-amber-500/30 bg-amber-50/30 shadow-lg shadow-amber-500/5 relative overflow-hidden group-hover:-translate-y-1 transition-transform duration-300">
+                    <div className="absolute top-0 right-0 px-3 py-1 bg-amber-500 text-white text-[10px] font-bold uppercase tracking-widest rounded-bl-lg">
+                      In Progress
+                    </div>
+                    <h3 className="text-xl font-bold text-slate-900 mb-2 flex items-center gap-2">
+                      <span className="text-amber-600">Q1 2026</span>
+                      <span className="h-1 w-1 rounded-full bg-slate-300"/>
+                      Scalability & Social
+                    </h3>
+                    <ul className="space-y-2.5 mt-4">
+                      {[
+                        'Faster data ingestion & caching',
+                        'User profiles & public history',
+                        'Market sentiment signals',
+                        'Leaderboards & ranking',
+                        'Mobile UI optimization'
+                      ].map((item, i) => (
+                        <li key={i} className="flex items-start gap-2 text-sm text-slate-700">
+                          <Construction className="h-4 w-4 text-amber-600 shrink-0 mt-0.5" />
+                          <span className="leading-snug">{item}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                </div>
+              </motion.div>
+
+
+              {/* --- PHASE 3: Q2 2026 (PLANNED) --- */}
+              <motion.div 
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: "-100px" }}
+                transition={{ duration: 0.5, delay: 0.2 }}
+                className="relative flex flex-col md:flex-row items-center justify-between gap-8 group"
+              >
+                {/* Content */}
+                <div className="w-full md:w-[45%] order-2 md:order-1">
+                  <div className="glass-card p-6 border-cyan-primary-200/50 hover:border-cyan-primary-400/50 relative overflow-hidden group-hover:-translate-y-1 transition-transform duration-300">
+                    <h3 className="text-xl font-bold text-slate-900 mb-2 flex items-center gap-2">
+                      <span className="text-cyan-primary-600">Q2 2026</span>
+                      <span className="h-1 w-1 rounded-full bg-slate-300"/>
+                      Advanced Trading
+                    </h3>
+                    <ul className="space-y-2.5 mt-4">
+                      {[
+                        'Advanced AMM curves',
+                        'Dynamic liquidity incentives',
+                        'Multi-position portfolio tools',
+                        'Risk metrics & analytics',
+                        'Strategy-based dashboards'
+                      ].map((item, i) => (
+                        <li key={i} className="flex items-start gap-2 text-sm text-slate-600">
+                          <Layers className="h-4 w-4 text-cyan-primary-400 shrink-0 mt-0.5" />
+                          <span className="leading-snug">{item}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                </div>
+                
+                {/* Center Node */}
+                <div className="absolute left-4 md:left-1/2 -translate-x-1/2 flex items-center justify-center order-1 md:order-2 hidden sm:flex">
+                  <div className="w-3 h-3 bg-slate-200 rounded-full ring-4 ring-white group-hover:bg-cyan-primary-400 transition-colors duration-300" />
+                </div>
+
+                {/* Spacer */}
+                <div className="w-full md:w-[45%] order-3 hidden md:block" />
+              </motion.div>
+
+
+              {/* --- PHASE 4: Q3 2026 (PLANNED) --- */}
+              <motion.div 
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: "-100px" }}
+                transition={{ duration: 0.5, delay: 0.3 }}
+                className="relative flex flex-col md:flex-row items-center justify-between gap-8 group"
+              >
+                {/* Spacer */}
+                <div className="w-full md:w-[45%] order-3 md:order-1 hidden md:block" />
+
+                {/* Center Node */}
+                <div className="absolute left-4 md:left-1/2 -translate-x-1/2 flex items-center justify-center order-1 md:order-2 hidden sm:flex">
+                  <div className="w-3 h-3 bg-slate-200 rounded-full ring-4 ring-white group-hover:bg-purple-500 transition-colors duration-300" />
+                </div>
+
+                {/* Content */}
+                <div className="w-full md:w-[45%] order-2 md:order-3">
+                  <div className="glass-card p-6 border-cyan-primary-200/50 hover:border-purple-400/50 relative overflow-hidden group-hover:-translate-y-1 transition-transform duration-300">
+                    <h3 className="text-xl font-bold text-slate-900 mb-2 flex items-center gap-2">
+                      <span className="text-purple-600">Q3 2026</span>
+                      <span className="h-1 w-1 rounded-full bg-slate-300"/>
+                      Protocol Expansion
+                    </h3>
+                    <ul className="space-y-2.5 mt-4">
+                      {[
+                        'Partial real on-chain execution',
+                        'Cross-market liquidity routing',
+                        'API access for external devs',
+                        'Institutional-grade analytics',
+                        'Ecosystem partnerships'
+                      ].map((item, i) => (
+                        <li key={i} className="flex items-start gap-2 text-sm text-slate-600">
+                          <Rocket className="h-4 w-4 text-purple-400 shrink-0 mt-0.5" />
+                          <span className="leading-snug">{item}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                </div>
+              </motion.div>
+
+            </div>
           </div>
         </div>
       </section>

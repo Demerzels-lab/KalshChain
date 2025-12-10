@@ -1,9 +1,8 @@
 import type { Metadata } from 'next';
 import localFont from 'next/font/local';
 import './globals.css';
-import { WalletProvider } from '@/providers/WalletProvider';
-import { Navbar } from '@/components/Navbar';
-import { InteractiveBackground } from '@/components/InteractiveBackground';
+import { LoadingProvider } from '@/contexts/LoadingContext';
+import { AppContent } from '@/components/AppContent';
 
 const geistSans = localFont({
   src: './fonts/GeistVF.woff',
@@ -37,15 +36,9 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased bg-white text-slate-900 min-h-screen relative selection:bg-cyan-primary-100 selection:text-cyan-primary-900`}
       >
-        {/* Global Interactive Background */}
-        <InteractiveBackground />
-
-        <WalletProvider>
-          <Navbar />
-          <main className="pb-20 relative z-10">
-            {children}
-          </main>
-        </WalletProvider>
+        <LoadingProvider>
+          <AppContent>{children}</AppContent>
+        </LoadingProvider>
       </body>
     </html>
   );
