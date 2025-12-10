@@ -4,8 +4,9 @@ import { useState } from 'react';
 import { useMarkets } from '@/hooks/useMarkets';
 import { MarketCard } from '@/components/MarketCard';
 import { InteractiveBackground } from '@/components/InteractiveBackground';
+import { LoadingScreen } from '@/components/LoadingScreen';
 import { Button } from '@/components/ui/button';
-import { TrendingUp, Zap, Shield, ArrowRight, Loader2, Globe, Activity } from 'lucide-react';
+import { TrendingUp, Zap, Shield, ArrowRight, Loader2, Globe, Activity, Construction, Layers, CheckCircle2, Timer, Rocket } from 'lucide-react';
 import Link from 'next/link';
 
 const categories = ['All', 'Crypto', 'Politics', 'Economy', 'Sports', 'AI & Tech', 'Culture'];
@@ -13,10 +14,19 @@ const categories = ['All', 'Crypto', 'Politics', 'Economy', 'Sports', 'AI & Tech
 export default function HomePage() {
   const { markets, loading } = useMarkets();
   const [activeCategory, setActiveCategory] = useState('All');
+  const [isLoading, setIsLoading] = useState(true);
 
   const filteredMarkets = activeCategory === 'All'
     ? markets
     : markets.filter(m => m.category === activeCategory);
+
+  const handleLoadingComplete = () => {
+    setIsLoading(false);
+  };
+
+  if (isLoading) {
+    return <LoadingScreen onComplete={handleLoadingComplete} />;
+  }
 
   return (
     <div className="min-h-screen">
@@ -238,6 +248,156 @@ export default function HomePage() {
                 Create Market
               </Button>
             </Link>
+          </div>
+        </div>
+      </section>
+
+      {/* --- ROADMAP TIMELINE --- */}
+      {/* --- ROADMAP SECTION --- */}
+      <section className="py-24 relative overflow-hidden bg-slate-50/50 border-y border-slate-200">
+        <div className="absolute inset-0 bg-[url('/grid.svg')] opacity-[0.05]" />
+        
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+          <div className="text-center mb-16">
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-cyan-primary-50 border border-cyan-primary-200 text-cyan-primary-700 text-xs font-mono font-bold uppercase tracking-widest mb-4">
+              <Timer className="h-4 w-4" /> Strategic Timeline
+            </div>
+            <h2 className="text-3xl sm:text-4xl font-bold text-slate-900 mb-4">Protocol Roadmap</h2>
+            <p className="text-slate-600 max-w-2xl mx-auto">
+              Our phased approach to building the ultimate decentralized prediction layer.
+            </p>
+          </div>
+
+          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+            
+            {/* Phase 1: Completed */}
+            <div className="glass-card p-6 border-emerald-500/30 bg-emerald-50/30 shadow-lg shadow-emerald-500/5 hover:-translate-y-1 transition-all duration-300">
+              <div className="flex items-center gap-3 mb-4">
+                <div className="h-10 w-10 rounded-lg bg-emerald-100 flex items-center justify-center text-emerald-600">
+                  <CheckCircle2 className="h-5 w-5" />
+                </div>
+                <div>
+                  <div className="text-xs font-bold text-emerald-600 uppercase tracking-wider">Completed</div>
+                  <div className="text-lg font-bold text-slate-900">Q4 2025</div>
+                </div>
+              </div>
+              <h3 className="text-base font-semibold text-slate-900 mb-4 pb-4 border-b border-emerald-100">
+                Core Platform Live
+              </h3>
+              <ul className="space-y-3">
+                {[
+                  'Real-time market data',
+                  'On-chain AMM & Pools',
+                  'Phantom Wallet Connect',
+                  '30+ Native Markets',
+                  '40+ Kalshi Markets',
+                  'User Market Creation',
+                  'PnL Dashboard'
+                ].map((item, i) => (
+                  <li key={i} className="flex items-start gap-2 text-sm text-slate-600">
+                    <span className="mt-1.5 h-1.5 w-1.5 rounded-full bg-emerald-400 flex-shrink-0" />
+                    {item}
+                  </li>
+                ))}
+              </ul>
+            </div>
+
+            {/* Phase 2: In Progress */}
+            <div className="glass-card p-6 border-amber-500/30 bg-amber-50/30 shadow-lg shadow-amber-500/5 hover:-translate-y-1 transition-all duration-300 relative overflow-hidden">
+              <div className="absolute top-0 right-0 px-3 py-1 bg-amber-500 text-white text-[10px] font-bold uppercase tracking-widest rounded-bl-lg">
+                Current
+              </div>
+              <div className="flex items-center gap-3 mb-4">
+                <div className="h-10 w-10 rounded-lg bg-amber-100 flex items-center justify-center text-amber-600">
+                  <Construction className="h-5 w-5" />
+                </div>
+                <div>
+                  <div className="text-xs font-bold text-amber-600 uppercase tracking-wider">In Progress</div>
+                  <div className="text-lg font-bold text-slate-900">Q1 2026</div>
+                </div>
+              </div>
+              <h3 className="text-base font-semibold text-slate-900 mb-4 pb-4 border-b border-amber-100">
+                Scalability & Social
+              </h3>
+              <ul className="space-y-3">
+                {[
+                  'Fast Data Ingestion',
+                  'User Profiles',
+                  'Public Trade History',
+                  'Market Sentiment',
+                  'Trader Leaderboards',
+                  'Mobile UI v2.0'
+                ].map((item, i) => (
+                  <li key={i} className="flex items-start gap-2 text-sm text-slate-600">
+                    <span className="mt-1.5 h-1.5 w-1.5 rounded-full bg-amber-400 flex-shrink-0" />
+                    {item}
+                  </li>
+                ))}
+              </ul>
+            </div>
+
+            {/* Phase 3: Planned */}
+            <div className="glass-card p-6 border-cyan-primary-200/50 hover:border-cyan-primary-400/50 hover:-translate-y-1 transition-all duration-300 opacity-90 hover:opacity-100">
+              <div className="flex items-center gap-3 mb-4">
+                <div className="h-10 w-10 rounded-lg bg-cyan-primary-100 flex items-center justify-center text-cyan-primary-600">
+                  <Layers className="h-5 w-5" />
+                </div>
+                <div>
+                  <div className="text-xs font-bold text-cyan-primary-600 uppercase tracking-wider">Planned</div>
+                  <div className="text-lg font-bold text-slate-900">Q2 2026</div>
+                </div>
+              </div>
+              <h3 className="text-base font-semibold text-slate-900 mb-4 pb-4 border-b border-slate-100">
+                Advanced Trading
+              </h3>
+              <ul className="space-y-3">
+                {[
+                  'Advanced AMM Curves',
+                  'Dynamic Liquidity',
+                  'Multi-Position Tools',
+                  'Risk Metrics',
+                  'Probability Analytics',
+                  'Strategy Dashboards'
+                ].map((item, i) => (
+                  <li key={i} className="flex items-start gap-2 text-sm text-slate-500">
+                    <span className="mt-1.5 h-1.5 w-1.5 rounded-full bg-slate-300 flex-shrink-0" />
+                    {item}
+                  </li>
+                ))}
+              </ul>
+            </div>
+
+            {/* Phase 4: Expansion */}
+            <div className="glass-card p-6 border-cyan-primary-200/50 hover:border-cyan-primary-400/50 hover:-translate-y-1 transition-all duration-300 opacity-90 hover:opacity-100">
+              <div className="flex items-center gap-3 mb-4">
+                <div className="h-10 w-10 rounded-lg bg-purple-100 flex items-center justify-center text-purple-600">
+                  <Rocket className="h-5 w-5" />
+                </div>
+                <div>
+                  <div className="text-xs font-bold text-purple-600 uppercase tracking-wider">Planned</div>
+                  <div className="text-lg font-bold text-slate-900">Q3 2026</div>
+                </div>
+              </div>
+              <h3 className="text-base font-semibold text-slate-900 mb-4 pb-4 border-b border-slate-100">
+                Protocol Expansion
+              </h3>
+              <ul className="space-y-3">
+                {[
+                  'Real On-Chain Exec',
+                  'Cross-Market Liquidity',
+                  'Developer API',
+                  'Institutional Analytics',
+                  'Market Syndication',
+                  'Ecosystem Partnerships'
+                ].map((item, i) => (
+                  <li key={i} className="flex items-start gap-2 text-sm text-slate-500">
+                    <span className="mt-1.5 h-1.5 w-1.5 rounded-full bg-slate-300 flex-shrink-0" />
+                    {item}
+                  </li>
+                ))}
+              </ul>
+            </div>
+
           </div>
         </div>
       </section>
