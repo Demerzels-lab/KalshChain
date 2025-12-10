@@ -1,15 +1,15 @@
-# KalshChain - Platform Prediction Market Terdesentralisasi
+# KalshChain - Decentralized Prediction Market Platform
 
-Platform prediction market terdesentralisasi dengan integrasi Solana wallet, menggabungkan gaya Kalshi dan Polymarket.
+Decentralized prediction market platform with Solana wallet integration, combining Kalshi and Polymarket styles.
 
-## Fitur Utama
+## Key Features
 
 - **Real Solana Wallet Integration**: Phantom wallet support via Solana Wallet Adapter
 - **70+ Markets**: 25 On-Chain markets + 45 Kalshi 2026 markets
-- **Mock AMM Trading Engine**: Constant product curve dengan liquidity pools
-- **Wallet Connection Gating**: "Connect Wallet to Trade" pada semua trading panel
+- **Mock AMM Trading Engine**: Constant product curve with liquidity pools
+- **Wallet Connection Gating**: "Connect Wallet to Trade" on all trading panels
 - **Multi-Category Markets**: Crypto, Politics, Economy, Sports, AI & Tech, Culture
-- **Responsive Design**: Dark theme dengan modern trading-focused UI
+- **Responsive Design**: Dark theme with modern trading-focused UI
 
 ## Tech Stack
 
@@ -20,22 +20,22 @@ Platform prediction market terdesentralisasi dengan integrasi Solana wallet, men
 - **Backend**: Supabase (PostgreSQL)
 - **State Management**: React Hooks + Context
 
-## Halaman
+## Pages
 
-- `/` - Homepage dengan market overview
-- `/explore` - Eksplorasi semua markets dengan filter
-- `/markets/[id]` - Detail market dengan trading panel
-- `/create` - Buat market baru (memerlukan wallet)
-- `/positions` - Lihat posisi trading
-- `/wallet` - Riwayat transaksi
+- `/` - Homepage with market overview
+- `/explore` - Explore all markets with filters
+- `/markets/[id]` - Market detail with trading panel
+- `/create` - Create new market (requires wallet)
+- `/positions` - View trading positions
+- `/wallet` - Transaction history
 
-## Cara Menjalankan
+## Getting Started
 
 ### Prerequisites
 
 - Node.js 18+
 - npm
-- Phantom Wallet extension (untuk trading)
+- Phantom Wallet extension (for trading)
 
 ### Setup
 
@@ -52,12 +52,12 @@ Platform prediction market terdesentralisasi dengan integrasi Solana wallet, men
    NEXT_PUBLIC_SUPABASE_ANON_KEY=your_supabase_anon_key
    ```
 
-4. Jalankan development server:
+4. Run development server:
    ```bash
    npm run dev
    ```
 
-5. Buka http://localhost:3000
+5. Open http://localhost:3000
 
 ### Production Build
 
@@ -92,21 +92,26 @@ npm run start
 
 ## Trading Engine
 
-Platform menggunakan mock AMM (Automated Market Maker) dengan:
+Platform uses mock AMM (Automated Market Maker) with:
 - **Constant Product Formula**: x * y = k
-- **Fee Rate**: 2% per transaksi
-- **Slippage Calculation**: Berdasarkan ukuran trade vs liquidity
+- **Fee Rate**: 2% per transaction
+- **Slippage Calculation**: Based on trade size vs liquidity
 - **Mock Blockchain Transactions**: Signature verification via Phantom
 
-## Kategori Market
+## Market Categories
 
 1. **Crypto**: Bitcoin, Ethereum, Solana, DeFi
-2. **Politics**: Pemilu, kebijakan, geopolitik
-3. **Economy**: Makroekonomi, saham, mata uang
-4. **Sports**: Sepakbola, F1, NBA, tennis
+2. **Politics**: Elections, policies, geopolitics
+3. **Economy**: Macroeconomics, stocks, currencies
+4. **Sports**: Soccer, F1, NBA, tennis
 5. **AI & Tech**: OpenAI, Tesla, SpaceX, quantum
-6. **Culture**: Musik, film, streaming, entertainment
+6. **Culture**: Music, movies, streaming, entertainment
 
 ## License
 
-MIT
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+The MIT License is a permissive free software license that allows you to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the software, subject to the following conditions:
+
+- The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+- THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.

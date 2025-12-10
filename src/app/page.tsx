@@ -8,7 +8,7 @@ import { LoadingScreen } from '@/components/LoadingScreen';
 import { useLoading } from '@/contexts/LoadingContext';
 import { Button } from '@/components/ui/button';
 import { motion } from 'framer-motion';
-import { TrendingUp, Zap, Shield, ArrowRight, Loader2, Globe, Activity, Construction, Layers, CheckCircle2, Timer, Rocket, Twitter, Github, HelpCircle, ChevronDown, ChevronUp } from 'lucide-react';
+import { TrendingUp, Zap, Shield, ArrowRight, Loader2, Globe, Activity, Construction, Layers, CheckCircle2, Timer, Rocket, Twitter, Github, HelpCircle, ChevronDown, ChevronUp, Wallet, BookOpen, DollarSign, BarChart3, Clock, Target, Coins } from 'lucide-react';
 import Link from 'next/link';
 
 const categories = ['All', 'Crypto', 'Politics', 'Economy', 'Sports', 'AI & Tech', 'Culture'];
@@ -56,11 +56,86 @@ const faqs = [
   }
 ];
 
+const howItWorksSteps = [
+  {
+    number: 1,
+    title: 'Connect Your Wallet',
+    description: 'Connect your Phantom wallet to access the platform. Your wallet serves as your identity and holds your funds.',
+    icon: Wallet,
+    details: [
+      'Install Phantom wallet browser extension',
+      'Click "Select Wallet" in the navigation bar',
+      'Approve the connection request',
+      'Your wallet address will be displayed when connected'
+    ]
+  },
+  {
+    number: 2,
+    title: 'Explore Markets',
+    description: 'Browse through various prediction markets across different categories including crypto, politics, economics, and more.',
+    icon: TrendingUp,
+    details: [
+      'Use filters to find markets by category',
+      'Sort by volume, expiration, or probability',
+      'View market details including liquidity and volume',
+      'Check the current YES/NO probabilities'
+    ]
+  },
+  {
+    number: 3,
+    title: 'Place Your Trade',
+    description: 'Buy YES or NO shares based on your prediction. The price reflects the market probability of that outcome.',
+    icon: DollarSign,
+    details: [
+      'Select YES if you believe the event will happen',
+      'Select NO if you believe it will not happen',
+      'Enter the number of shares you want to buy',
+      'Review the price impact and confirm your trade'
+    ]
+  },
+  {
+    number: 4,
+    title: 'Wait for Resolution',
+    description: 'Markets resolve at their expiration date. Winning shares pay out 1 SOL, losing shares pay 0 SOL.',
+    icon: Clock,
+    details: [
+      'Monitor your positions in the Positions tab',
+      'Track unrealized profit/loss in real-time',
+      'Markets resolve based on real-world outcomes',
+      'Winnings are automatically credited to your wallet'
+    ]
+  }
+];
+
+const platformFeatures = [
+  {
+    icon: Shield,
+    title: 'Non-Custodial',
+    description: 'Your funds remain in your control. We never hold your assets.'
+  },
+  {
+    icon: Zap,
+    title: 'Instant Settlement',
+    description: 'Trades settle instantly on-chain with no waiting period.'
+  },
+  {
+    icon: BarChart3,
+    title: 'AMM Powered',
+    description: 'Automated Market Maker ensures deep liquidity for all trades.'
+  },
+  {
+    icon: Activity,
+    title: 'Community Markets',
+    description: 'Create your own markets and earn fees as a liquidity provider.'
+  }
+];
+
 export default function HomePage() {
   const { markets, loading } = useMarkets();
   const { isLoading, setIsLoading } = useLoading();
   const [activeCategory, setActiveCategory] = useState('All');
   const [expandedFaq, setExpandedFaq] = useState<number | null>(null);
+  const [expandedStep, setExpandedStep] = useState<number | null>(1);
 
   const filteredMarkets = activeCategory === 'All'
     ? markets
@@ -316,6 +391,175 @@ export default function HomePage() {
             <Link href="/explore">
               <Button variant="outline" className="w-full">View All Markets</Button>
             </Link>
+          </motion.div>
+        </div>
+      </section>
+
+      {/* --- HOW IT WORKS SECTION --- */}
+      <section className="py-32 relative bg-gradient-to-b from-white to-slate-50/50">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-100px" }}
+            transition={{ duration: 0.5 }}
+            className="text-center mb-20"
+          >
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-cyan-primary-500/10 border border-cyan-primary-500/20 text-cyan-primary-600 text-xs font-mono font-bold uppercase tracking-widest mb-4">
+              <HelpCircle className="h-4 w-4" />
+              How It Works
+            </div>
+            <h2 className="text-3xl sm:text-4xl font-bold text-slate-900 mb-4">Get Started in Minutes</h2>
+            <p className="text-slate-600 max-w-2xl mx-auto">
+              Learn how to trade on decentralized prediction markets. From connecting your wallet to making your first trade.
+            </p>
+          </motion.div>
+
+          {/* Step by Step Guide */}
+          <div className="max-w-4xl mx-auto mb-20">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-100px" }}
+              transition={{ duration: 0.5, delay: 0.1 }}
+              className="text-center mb-12"
+            >
+              <h3 className="text-2xl font-bold text-slate-900 mb-2">Step-by-Step Guide</h3>
+              <p className="text-slate-600">Follow these simple steps to start trading</p>
+            </motion.div>
+
+            <div className="space-y-4">
+              {howItWorksSteps.map((step, index) => {
+                const Icon = step.icon;
+                const isExpanded = expandedStep === step.number;
+
+                return (
+                  <motion.div
+                    key={step.number}
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true, margin: "-100px" }}
+                    transition={{ duration: 0.4, delay: 0.2 + index * 0.1 }}
+                    className="border border-gray-200 rounded-lg bg-white shadow-sm hover:shadow-md transition-shadow overflow-hidden"
+                  >
+                    <button
+                      onClick={() => setExpandedStep(isExpanded ? null : step.number)}
+                      className="w-full text-left p-6 flex items-center gap-4 hover:bg-gray-50 transition-colors"
+                    >
+                      <div className="flex-shrink-0 h-12 w-12 rounded-xl bg-cyan-primary-600 flex items-center justify-center text-white font-bold text-lg">
+                        {step.number}
+                      </div>
+                      <div className="flex-1">
+                        <div className="flex items-center gap-2 mb-1">
+                          <Icon className="h-5 w-5 text-cyan-primary-600" />
+                          <h4 className="font-semibold text-slate-900">{step.title}</h4>
+                        </div>
+                        <p className="text-sm text-slate-600">{step.description}</p>
+                      </div>
+                      {isExpanded ? (
+                        <ChevronUp className="h-5 w-5 text-slate-400 flex-shrink-0" />
+                      ) : (
+                        <ChevronDown className="h-5 w-5 text-slate-400 flex-shrink-0" />
+                      )}
+                    </button>
+
+                    {isExpanded && (
+                      <motion.div
+                        initial={{ opacity: 0, height: 0 }}
+                        animate={{ opacity: 1, height: 'auto' }}
+                        exit={{ opacity: 0, height: 0 }}
+                        transition={{ duration: 0.3 }}
+                        className="px-6 pb-6"
+                      >
+                        <div className="ml-16 pl-4 border-l-2 border-cyan-primary-300">
+                          <ul className="space-y-3">
+                            {step.details.map((detail, idx) => (
+                              <li key={idx} className="flex items-start gap-3">
+                                <CheckCircle2 className="h-4 w-4 text-emerald-600 flex-shrink-0 mt-0.5" />
+                                <span className="text-slate-700 text-sm leading-relaxed">{detail}</span>
+                              </li>
+                            ))}
+                          </ul>
+                        </div>
+                      </motion.div>
+                    )}
+                  </motion.div>
+                );
+              })}
+            </div>
+          </div>
+
+          {/* Platform Features */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-100px" }}
+            transition={{ duration: 0.5, delay: 0.3 }}
+            className="mb-20"
+          >
+            <div className="text-center mb-12">
+              <h3 className="text-2xl font-bold text-slate-900 mb-2">Platform Features</h3>
+              <p className="text-slate-600">Built for security, speed, and transparency</p>
+            </div>
+
+            <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+              {platformFeatures.map((feature, index) => {
+                const Icon = feature.icon;
+                return (
+                  <motion.div
+                    key={feature.title}
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true, margin: "-100px" }}
+                    transition={{ duration: 0.4, delay: 0.4 + index * 0.1 }}
+                    className="glass-card p-6 text-center"
+                  >
+                    <div className="inline-flex items-center justify-center h-12 w-12 rounded-xl bg-cyan-primary-100 text-cyan-primary-600 mb-4">
+                      <Icon className="h-6 w-6" />
+                    </div>
+                    <h4 className="text-lg font-semibold text-slate-900 mb-2">{feature.title}</h4>
+                    <p className="text-sm text-slate-600">{feature.description}</p>
+                  </motion.div>
+                );
+              })}
+            </div>
+          </motion.div>
+
+          {/* Trading Flow Diagram */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-100px" }}
+            transition={{ duration: 0.5, delay: 0.5 }}
+          >
+            <div className="text-center mb-12">
+              <h3 className="text-2xl font-bold text-slate-900 mb-2">Trading Flow</h3>
+              <p className="text-slate-600">Understand how trades work from start to finish</p>
+            </div>
+
+            <div className="relative max-w-4xl mx-auto">
+              <div className="hidden md:block absolute top-1/2 left-0 right-0 h-0.5 bg-cyan-primary-200 -translate-y-1/2" />
+
+              <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
+                {[
+                  { icon: Target, title: 'Select Market', desc: 'Choose a prediction market' },
+                  { icon: Coins, title: 'Buy Shares', desc: 'YES or NO at current price' },
+                  { icon: BarChart3, title: 'Monitor Position', desc: 'Track P&L in real-time' },
+                  { icon: DollarSign, title: 'Collect Payout', desc: 'Winners receive 1 SOL/share' },
+                ].map((item, idx) => {
+                  const Icon = item.icon;
+                  return (
+                    <div key={idx} className="relative text-center">
+                      <div className="relative z-10 mx-auto h-16 w-16 rounded-full bg-cyan-primary-100 border-2 border-cyan-primary-500 flex items-center justify-center mb-4">
+                        <Icon className="h-7 w-7 text-cyan-primary-600" />
+                      </div>
+                      <h4 className="font-semibold text-slate-900 mb-1">{item.title}</h4>
+                      <p className="text-sm text-slate-600">{item.desc}</p>
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
           </motion.div>
         </div>
       </section>
@@ -604,11 +848,6 @@ export default function HomePage() {
               <Link href="/docs">
                 <Button className="bg-cyan-primary-600 hover:bg-cyan-primary-700 text-white">
                   View Documentation
-                </Button>
-              </Link>
-              <Link href="/how-it-works">
-                <Button variant="outline" className="border-cyan-primary-300 text-cyan-primary-700 hover:bg-cyan-primary-50">
-                  How It Works
                 </Button>
               </Link>
             </div>
