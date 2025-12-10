@@ -52,6 +52,10 @@ export default function CreateMarketPage() {
       const walletAddress = publicKey.toBase58();
       const liquidity = parseFloat(initialLiquidity) || 1000;
 
+      if (!supabase) {
+        throw new Error('Database connection not available');
+      }
+
       // Create market
       const { data: market, error: marketError } = await supabase
         .from('kalshchain_markets')

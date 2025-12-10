@@ -3,13 +3,16 @@ import { createClient } from '@supabase/supabase-js';
 const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
 const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
 
-if (!supabaseUrl || !supabaseAnonKey) {
+// Only throw error if we're in browser and env vars are missing
+// During build time on Vercel, env vars might not be available
+if (typeof window !== 'undefined' && (!supabaseUrl || !supabaseAnonKey)) {
   throw new Error('Missing Supabase environment variables. Please check your .env.local file.');
 }
 
-export const supabase = createClient(supabaseUrl, supabaseAnonKey);
+export const supabase = supabaseUrl && supabaseAnonKey ? createClient(supabaseUrl, supabaseAnonKey) : null;
 
 export async function getMarkets() {
+  if (!supabase) throw new Error('Supabase client not initialized');
   const { data, error } = await supabase
     .from('kalshchain_markets')
     .select('*')
@@ -20,6 +23,7 @@ export async function getMarkets() {
 }
 
 export async function getMarketById(id: string) {
+  if (!supabase) throw new Error('Supabase client not initialized');
   const { data, error } = await supabase
     .from('kalshchain_markets')
     .select('*')
@@ -31,6 +35,7 @@ export async function getMarketById(id: string) {
 }
 
 export async function getLiquidityPool(marketId: string) {
+  if (!supabase) throw new Error('Supabase client not initialized');
   const { data, error } = await supabase
     .from('liquidity_pools')
     .select('*')
@@ -42,6 +47,7 @@ export async function getLiquidityPool(marketId: string) {
 }
 
 export async function getUserPositions(walletAddress: string) {
+  if (!supabase) throw new Error('Supabase client not initialized');
   const { data, error } = await supabase
     .from('user_positions')
     .select('*, market:kalshchain_markets(*)')
@@ -52,6 +58,7 @@ export async function getUserPositions(walletAddress: string) {
 }
 
 export async function getTradeHistory(walletAddress: string) {
+  if (!supabase) throw new Error('Supabase client not initialized');
   const { data, error } = await supabase
     .from('kalshchain_trades')
     .select('*, market:kalshchain_markets(*)')

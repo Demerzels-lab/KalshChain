@@ -39,6 +39,12 @@ export default function PositionsPage() {
     }
 
     async function fetchPositions() {
+      if (!supabase) {
+        console.error('Database connection not available');
+        setLoading(false);
+        return;
+      }
+
       const { data, error } = await supabase
         .from('user_positions')
         .select('*, market:kalshchain_markets(title, yes_price, no_price, category)')

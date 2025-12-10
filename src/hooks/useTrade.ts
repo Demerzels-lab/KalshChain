@@ -31,6 +31,10 @@ export function useTrade(marketId: string, pool: LiquidityPool | null) {
       throw new Error('Wallet tidak terhubung');
     }
 
+    if (!supabase) {
+      throw new Error('Database connection not available');
+    }
+
     setLoading(true);
     try {
       const currentQuote = calculateAMMQuote(pool, outcome, side, quantity);

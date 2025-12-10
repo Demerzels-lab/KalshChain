@@ -11,6 +11,10 @@ export function useMarkets() {
 
   const fetchMarkets = useCallback(async () => {
     try {
+      if (!supabase) {
+        throw new Error('Database connection not available');
+      }
+
       setLoading(true);
       const { data, error: fetchError } = await supabase
         .from('kalshchain_markets')
@@ -40,6 +44,12 @@ export function useMarket(id: string) {
 
   useEffect(() => {
     async function fetch() {
+      if (!supabase) {
+        console.error('Database connection not available');
+        setLoading(false);
+        return;
+      }
+
       try {
         const [marketRes, poolRes] = await Promise.all([
           supabase.from('kalshchain_markets').select('*').eq('id', id).single(),

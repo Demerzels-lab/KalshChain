@@ -40,6 +40,12 @@ export default function WalletPage() {
     }
 
     async function fetchTrades() {
+      if (!supabase) {
+        console.error('Database connection not available');
+        setLoading(false);
+        return;
+      }
+
       const { data, error } = await supabase
         .from('kalshchain_trades')
         .select('*, market:kalshchain_markets(title, category)')
