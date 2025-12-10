@@ -164,7 +164,6 @@ export function TradingPanel({ market, pool, onTradeComplete }: TradingPanelProp
               className="w-full pl-4 pr-12 py-3 rounded-xl bg-slate-50 border border-slate-200 text-slate-900 font-mono text-lg focus:outline-none focus:ring-2 focus:ring-cyan-primary-500 focus:border-transparent disabled:opacity-50 disabled:cursor-not-allowed transition-all"
               placeholder="0"
               min="0"
-              disabled={!connected}
             />
             <div className="absolute right-4 top-1/2 -translate-y-1/2 text-slate-400">
               <DollarSign className="w-4 h-4" />
