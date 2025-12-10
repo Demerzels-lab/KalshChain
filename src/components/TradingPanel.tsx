@@ -130,7 +130,6 @@ export function TradingPanel({ market, pool, onTradeComplete }: TradingPanelProp
             type="number"
             value={quantity}
             onChange={(e) => setQuantity(e.target.value)}
-            disabled={!connected}
             className="w-full px-4 py-3 rounded-lg bg-slate-100 border border-slate-300 text-slate-900 text-lg font-medium focus:outline-none focus:ring-2 focus:ring-cyan-primary-500 focus:border-transparent disabled:opacity-50 disabled:cursor-not-allowed"
             placeholder="0"
             min="0"
@@ -150,7 +149,7 @@ export function TradingPanel({ market, pool, onTradeComplete }: TradingPanelProp
           </div>
         </div>
 
-        {connected && quote && (
+        {quote && (
           <div className="p-4 rounded-lg bg-slate-100 space-y-2">
             <div className="flex justify-between text-sm">
               <span className="text-slate-600">Estimated Price</span>
