@@ -1,9 +1,9 @@
-// demerzels-lab/kalshchain/KalshChain-237051255d46360ee0eab8d0278534895dc525cf/src/app/layout.tsx
 import type { Metadata } from 'next';
 import localFont from 'next/font/local';
 import './globals.css';
 import { WalletProvider } from '@/providers/WalletProvider';
 import { Navbar } from '@/components/Navbar';
+import { InteractiveBackground } from '@/components/InteractiveBackground';
 
 const geistSans = localFont({
   src: './fonts/GeistVF.woff',
@@ -35,12 +35,14 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        // Inverted body classes for light theme
-        className={`${geistSans.variable} ${geistMono.variable} antialiased bg-white text-slate-900 min-h-screen`}
+        className={`${geistSans.variable} ${geistMono.variable} antialiased bg-white text-slate-900 min-h-screen relative selection:bg-cyan-primary-100 selection:text-cyan-primary-900`}
       >
+        {/* Global Interactive Background */}
+        <InteractiveBackground />
+
         <WalletProvider>
           <Navbar />
-          <main className="pb-20">
+          <main className="pb-20 relative z-10">
             {children}
           </main>
         </WalletProvider>

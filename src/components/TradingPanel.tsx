@@ -8,7 +8,7 @@ import { Button } from '@/components/ui/button';
 import { useTrade } from '@/hooks/useTrade';
 import { LiquidityPool, Market } from '@/types';
 import { formatCurrency, formatPercent } from '@/lib/utils';
-import { Loader2, AlertCircle, CheckCircle2, Lock } from 'lucide-react';
+import { Loader2, AlertCircle, CheckCircle2, ArrowRightLeft, DollarSign } from 'lucide-react';
 
 interface TradingPanelProps {
   market: Market;
@@ -45,7 +45,7 @@ export function TradingPanel({ market, pool, onTradeComplete }: TradingPanelProp
       }
 
       const result = await executeTrade(outcome, side, qty);
-      setSuccess(`Transaction successful! TX: ${result.txHash.slice(0, 16)}...`);
+      setSuccess(`Order Executed: ${result.txHash.slice(0, 12)}...`);
       onTradeComplete?.();
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Transaction failed');
@@ -53,95 +53,132 @@ export function TradingPanel({ market, pool, onTradeComplete }: TradingPanelProp
   };
 
   return (
-    <Card className="border-gray-200">
-      <CardHeader className="pb-4">
+    <Card className="border-slate-200/60 shadow-xl shadow-cyan-primary-500/5 bg-white/80 backdrop-blur-xl">
+      <CardHeader className="pb-4 border-b border-slate-100">
         <CardTitle className="flex items-center justify-between">
-          <span className='text-slate-900'>Trading Panel</span>
-          <div className="flex gap-2">
-            <Button
-              variant={side === 'BUY' ? 'default' : 'outline'}
-              size="sm"
-              onClick={() => setSide('BUY')}
-              disabled={!connected}
-              className={side === 'BUY' ? '' : 'text-slate-900 border-slate-300 hover:bg-slate-100'}
-            >
-              Buy
-            </Button>
-            <Button
-              variant={side === 'SELL' ? 'default' : 'outline'}
-              size="sm"
-              onClick={() => setSide('SELL')}
-              disabled={!connected}
-              className={side === 'SELL' ? '' : 'text-slate-900 border-slate-300 hover:bg-slate-100'}
-            >
-              Sell
-            </Button>
+          <span className="flex items-center gap-2 text-slate-900 tracking-tight">
+            <ArrowRightLeft className="h-5 w-5 text-cyan-primary-600" />
+            Execution
+          </span>
+          {/* Status Indicator */}
+          <div className="flex items-center gap-1.5 px-2 py-1 rounded bg-slate-50 border border-slate-200">
+            <div className={`w-1.5 h-1.5 rounded-full ${connected ? 'bg-emerald-500 animate-pulse' : 'bg-slate-300'}`} />
+            <span className="text-[10px] font-mono font-medium text-slate-500 uppercase">
+              {connected ? 'Online' : 'Offline'}
+            </span>
           </div>
         </CardTitle>
       </CardHeader>
 
-      <CardContent className="space-y-5">
+      <CardContent className="space-y-6 pt-6">
+        
+        {/* --- Buy/Sell Segmented Control --- */}
+        <div className="grid grid-cols-2 p-1 rounded-xl bg-slate-100/80 border border-slate-200">
+          <button
+            onClick={() => setSide('BUY')}
+            disabled={!connected}
+            className={`py-2 text-sm font-semibold rounded-lg transition-all duration-200 ${
+              side === 'BUY'
+                ? 'bg-white text-slate-900 shadow-sm ring-1 ring-black/5'
+                : 'text-slate-500 hover:text-slate-700'
+            }`}
+          >
+            BUY
+          </button>
+          <button
+            onClick={() => setSide('SELL')}
+            disabled={!connected}
+            className={`py-2 text-sm font-semibold rounded-lg transition-all duration-200 ${
+              side === 'SELL'
+                ? 'bg-white text-slate-900 shadow-sm ring-1 ring-black/5'
+                : 'text-slate-500 hover:text-slate-700'
+            }`}
+          >
+            SELL
+          </button>
+        </div>
+
+        {/* --- Outcome Selector (Big Targets) --- */}
         <div className="grid grid-cols-2 gap-3">
           <button
             onClick={() => connected && setOutcome('YES')}
             disabled={!connected}
-            className={`p-4 rounded-xl border-2 transition-all ${
+            className={`relative p-4 rounded-xl border transition-all duration-200 group overflow-hidden ${
               !connected 
-                ? 'border-slate-200 bg-slate-50 opacity-50 cursor-not-allowed'
+                ? 'border-slate-200 bg-slate-50 opacity-60 cursor-not-allowed'
                 : outcome === 'YES'
-                ? 'border-cyan-primary-500 bg-cyan-primary-500/10'
-                : 'border-slate-300 bg-slate-100 hover:border-slate-400'
+                ? 'border-cyan-primary-500 bg-cyan-primary-50 shadow-md shadow-cyan-primary-500/10 ring-1 ring-cyan-primary-500'
+                : 'border-slate-200 bg-white hover:border-cyan-primary-300'
             }`}
           >
-            {/* Updated text color to cyan-primary for YES price */}
-            <div className="text-2xl font-bold text-cyan-primary-600 mb-1">
-              {formatPercent(market.yes_price)}
+            <div className="relative z-10 flex flex-col items-start">
+              <span className={`text-xs font-bold uppercase tracking-wider mb-1 ${outcome === 'YES' ? 'text-cyan-primary-700' : 'text-slate-500'}`}>
+                Outcome
+              </span>
+              <span className={`text-2xl font-black tracking-tight ${outcome === 'YES' ? 'text-cyan-primary-900' : 'text-slate-700'}`}>
+                YES
+              </span>
+              <span className={`text-sm font-mono mt-1 ${outcome === 'YES' ? 'text-cyan-primary-600' : 'text-slate-400'}`}>
+                {formatPercent(market.yes_price)}
+              </span>
             </div>
-            {/* Inverted text color */}
-            <div className="text-sm text-slate-600">YES</div>
+            {outcome === 'YES' && <div className="absolute top-0 right-0 w-16 h-16 bg-gradient-to-br from-cyan-primary-400/20 to-transparent rounded-bl-full -mr-4 -mt-4" />}
           </button>
+
           <button
             onClick={() => connected && setOutcome('NO')}
             disabled={!connected}
-            className={`p-4 rounded-xl border-2 transition-all ${
+            className={`relative p-4 rounded-xl border transition-all duration-200 group overflow-hidden ${
               !connected 
-                ? 'border-slate-200 bg-slate-50 opacity-50 cursor-not-allowed'
+                ? 'border-slate-200 bg-slate-50 opacity-60 cursor-not-allowed'
                 : outcome === 'NO'
-                ? 'border-blue-500 bg-blue-500/10'
-                : 'border-slate-300 bg-slate-100 hover:border-slate-400'
+                ? 'border-blue-500 bg-blue-50 shadow-md shadow-blue-500/10 ring-1 ring-blue-500'
+                : 'border-slate-200 bg-white hover:border-blue-300'
             }`}
           >
-            {/* Updated text color to blue for NO price */}
-            <div className="text-2xl font-bold text-blue-600 mb-1">
-              {formatPercent(market.no_price)}
+            <div className="relative z-10 flex flex-col items-start">
+              <span className={`text-xs font-bold uppercase tracking-wider mb-1 ${outcome === 'NO' ? 'text-blue-700' : 'text-slate-500'}`}>
+                Outcome
+              </span>
+              <span className={`text-2xl font-black tracking-tight ${outcome === 'NO' ? 'text-blue-900' : 'text-slate-700'}`}>
+                NO
+              </span>
+              <span className={`text-sm font-mono mt-1 ${outcome === 'NO' ? 'text-blue-600' : 'text-slate-400'}`}>
+                {formatPercent(market.no_price)}
+              </span>
             </div>
-            {/* Inverted text color */}
-            <div className="text-sm text-slate-600">NO</div>
+            {outcome === 'NO' && <div className="absolute top-0 right-0 w-16 h-16 bg-gradient-to-br from-blue-400/20 to-transparent rounded-bl-full -mr-4 -mt-4" />}
           </button>
         </div>
 
+        {/* --- Input Field --- */}
         <div>
-          {/* Inverted text color */}
-          <label className="block text-sm font-medium text-slate-700 mb-2">
-            Number of Shares
+          <label className="block text-[10px] font-bold text-slate-500 uppercase tracking-widest mb-2">
+            Quantity (Shares)
           </label>
-          {/* Inverted input styling */}
-          <input
-            type="number"
-            value={quantity}
-            onChange={(e) => setQuantity(e.target.value)}
-            className="w-full px-4 py-3 rounded-lg bg-slate-100 border border-slate-300 text-slate-900 text-lg font-medium focus:outline-none focus:ring-2 focus:ring-cyan-primary-500 focus:border-transparent disabled:opacity-50 disabled:cursor-not-allowed"
-            placeholder="0"
-            min="0"
-          />
-          <div className="flex gap-2 mt-2">
-            {[10, 25, 50, 100].map((val) => (
+          <div className="relative">
+            <input
+              type="number"
+              value={quantity}
+              onChange={(e) => setQuantity(e.target.value)}
+              className="w-full pl-4 pr-12 py-3 rounded-xl bg-slate-50 border border-slate-200 text-slate-900 font-mono text-lg focus:outline-none focus:ring-2 focus:ring-cyan-primary-500 focus:border-transparent disabled:opacity-50 disabled:cursor-not-allowed transition-all"
+              placeholder="0"
+              min="0"
+              disabled={!connected}
+            />
+            <div className="absolute right-4 top-1/2 -translate-y-1/2 text-slate-400">
+              <DollarSign className="w-4 h-4" />
+            </div>
+          </div>
+          
+          {/* Quick Selectors */}
+          <div className="flex gap-2 mt-3">
+            {[10, 50, 100, 1000].map((val) => (
               <button
                 key={val}
                 onClick={() => setQuantity(val.toString())}
                 disabled={!connected}
-                // Inverted secondary button styling
-                className="flex-1 py-1.5 text-sm rounded-md bg-slate-200 text-slate-600 hover:bg-slate-300 hover:text-slate-900 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                className="flex-1 py-1.5 text-xs font-mono font-medium rounded-lg border border-slate-200 text-slate-500 hover:bg-slate-50 hover:text-cyan-primary-600 hover:border-cyan-primary-200 transition-all disabled:opacity-50"
               >
                 {val}
               </button>
@@ -149,65 +186,75 @@ export function TradingPanel({ market, pool, onTradeComplete }: TradingPanelProp
           </div>
         </div>
 
+        {/* --- Order Summary (Receipt Style) --- */}
         {quote && (
-          <div className="p-4 rounded-lg bg-slate-100 space-y-2">
-            <div className="flex justify-between text-sm">
-              <span className="text-slate-600">Estimated Price</span>
-              <span className="text-slate-900 font-medium">{formatCurrency(quote.price)}</span>
+          <div className="p-4 rounded-xl bg-slate-50 border border-slate-100 space-y-3 relative overflow-hidden">
+            <div className="absolute top-0 left-0 w-1 h-full bg-cyan-primary-500" />
+            
+            <div className="flex justify-between items-center text-sm">
+              <span className="text-slate-500">Avg. Price</span>
+              <span className="text-slate-900 font-mono">{formatCurrency(quote.price)}</span>
             </div>
-            <div className="flex justify-between text-sm">
-              <span className="text-slate-600">Total Cost</span>
-              <span className="text-slate-900 font-medium">{formatCurrency(quote.cost)}</span>
+            
+            <div className="flex justify-between items-center text-sm">
+              <span className="text-slate-500">Est. Fee</span>
+              <span className="text-slate-900 font-mono">{formatCurrency(quote.fee)}</span>
             </div>
-            <div className="flex justify-between text-sm">
-              <span className="text-slate-600">Fee (2%)</span>
-              <span className="text-slate-600">{formatCurrency(quote.fee)}</span>
+            
+            <div className="h-px bg-slate-200 w-full my-1" />
+            
+            <div className="flex justify-between items-center">
+              <span className="text-sm font-bold text-slate-700 uppercase tracking-wide">Total Cost</span>
+              <span className="text-lg font-mono font-bold text-cyan-primary-700">
+                {formatCurrency(quote.total)}
+              </span>
             </div>
-            <div className="flex justify-between text-sm pt-2 border-t border-slate-300">
-              <span className="text-slate-700 font-medium">Total</span>
-              {/* Cyan-primary accent for total */}
-              <span className="text-cyan-primary-700 font-semibold">{formatCurrency(quote.total)}</span>
-            </div>
+
             {quote.priceImpact > 0.01 && (
-              <div className="flex items-center gap-2 text-amber-600 text-xs mt-2">
-                <AlertCircle className="h-4 w-4" />
-                Price Impact: {(quote.priceImpact * 100).toFixed(2)}%
+              <div className="flex items-start gap-2 pt-2 text-amber-600 text-xs bg-amber-50 p-2 rounded border border-amber-100">
+                <AlertCircle className="h-4 w-4 flex-shrink-0 mt-0.5" />
+                <span>High Price Impact: {(quote.priceImpact * 100).toFixed(2)}%</span>
               </div>
             )}
           </div>
         )}
 
+        {/* --- Messages --- */}
         {error && (
-          <div className="flex items-center gap-2 p-3 rounded-lg bg-rose-500/10 border border-rose-500/30 text-rose-600 text-sm">
+          <div className="flex items-center gap-2 p-3 rounded-lg bg-rose-50 border border-rose-200 text-rose-600 text-sm font-medium animate-in fade-in slide-in-from-top-1">
             <AlertCircle className="h-4 w-4 flex-shrink-0" />
             {error}
           </div>
         )}
 
         {success && (
-          <div className="flex items-center gap-2 p-3 rounded-lg bg-emerald-500/10 border border-emerald-500/30 text-emerald-600 text-sm">
+          <div className="flex items-center gap-2 p-3 rounded-lg bg-emerald-50 border border-emerald-200 text-emerald-600 text-sm font-medium animate-in fade-in slide-in-from-top-1">
             <CheckCircle2 className="h-4 w-4 flex-shrink-0" />
             {success}
           </div>
         )}
 
+        {/* --- Action Button --- */}
         {!connected ? (
-          <WalletMultiButton className="!bg-cyan-primary-600 hover:!bg-cyan-primary-700 !rounded-lg !w-full !h-12 !text-base" />
+          <WalletMultiButton className="!bg-slate-900 hover:!bg-slate-800 !rounded-xl !w-full !h-12 !font-bold !text-sm !uppercase !tracking-wide shadow-lg shadow-slate-900/20" />
         ) : (
           <Button
-            variant={outcome === 'YES' ? 'yes' : 'no'}
+            variant={outcome === 'YES' ? 'default' : 'no'} // Uses 'default' (cyan) for Yes, 'no' (rose) for Sell/No logic if needed, or keep generic
             size="lg"
-            className="w-full"
+            className={`w-full h-12 text-base font-bold uppercase tracking-wide shadow-lg transition-all ${
+                // Dynamic shadow based on outcome color
+                outcome === 'YES' ? 'shadow-cyan-primary-500/25 hover:shadow-cyan-primary-500/40' : 'shadow-blue-500/25 hover:shadow-blue-500/40 bg-blue-600 hover:bg-blue-700'
+            }`}
             onClick={handleTrade}
             disabled={loading || !pool}
           >
             {loading ? (
-              <>
-                <Loader2 className="mr-2 h-5 w-5 animate-spin" />
-                Processing...
-              </>
+              <div className="flex items-center gap-2">
+                <Loader2 className="h-5 w-5 animate-spin" />
+                <span>Executing Strategy...</span>
+              </div>
             ) : (
-              `${side === 'BUY' ? 'Buy' : 'Sell'} ${outcome} Shares`
+              `Confirm ${side} ${outcome}`
             )}
           </Button>
         )}

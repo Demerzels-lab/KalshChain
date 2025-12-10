@@ -1,4 +1,3 @@
-// demerzels-lab/kalshchain/KalshChain-237051255d46360ee0eab8d0278534895dc525cf/tailwind.config.ts
 import type { Config } from "tailwindcss";
 
 const config: Config = {
@@ -12,7 +11,7 @@ const config: Config = {
       colors: {
         background: "var(--background)",
         foreground: "var(--foreground)",
-        // New Cyan-based primary color definition
+        // Preserving your Cyan Primary
         'cyan-primary': {
           '50': '#f0fdfa',
           '100': '#ccfbf1',
@@ -27,6 +26,29 @@ const config: Config = {
           '950': '#083344',
         },
       },
+      // QELVA-inspired animations
+      animation: {
+        'pulse-slow': 'pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+        'float': 'float 6s ease-in-out infinite',
+        'grid-move': 'gridMove 20s linear infinite',
+        'shimmer': 'shimmer 2s infinite',
+      },
+      keyframes: {
+        float: {
+          '0%, 100%': { transform: 'translateY(0)' },
+          '50%': { transform: 'translateY(-20px)' },
+        },
+        gridMove: {
+          '0%': { transform: 'translate(0, 0)' },
+          '100%': { transform: 'translate(40px, 40px)' },
+        },
+        shimmer: {
+          '100%': { transform: 'translateX(100%)' },
+        }
+      },
+      backgroundImage: {
+        'grid-pattern': "linear-gradient(to right, #e2e8f0 1px, transparent 1px), linear-gradient(to bottom, #e2e8f0 1px, transparent 1px)",
+      }
     },
   },
   plugins: [],

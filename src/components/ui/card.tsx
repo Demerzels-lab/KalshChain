@@ -6,8 +6,8 @@ const Card = forwardRef<HTMLDivElement, HTMLAttributes<HTMLDivElement>>(
     <div
       ref={ref}
       className={cn(
-        // Inverted Card Styling: Lighter border, white background, subtle shadow
-        'rounded-xl border border-gray-200 bg-white/90 backdrop-blur-sm shadow-sm',
+        // Applying the new design system class
+        'glass-card rounded-2xl overflow-hidden',
         className
       )}
       {...props}
@@ -25,16 +25,19 @@ CardHeader.displayName = 'CardHeader';
 
 const CardTitle = forwardRef<HTMLParagraphElement, HTMLAttributes<HTMLHeadingElement>>(
   ({ className, ...props }, ref) => (
-    // Inverted text color from white to dark slate
-    <h3 ref={ref} className={cn('text-lg font-semibold text-slate-900', className)} {...props} />
+    <h3 
+      ref={ref} 
+      // QELVA uses bolder, tighter headings. 
+      className={cn('text-lg font-bold text-slate-900 tracking-tight leading-none', className)} 
+      {...props} 
+    />
   )
 );
 CardTitle.displayName = 'CardTitle';
 
 const CardDescription = forwardRef<HTMLParagraphElement, HTMLAttributes<HTMLParagraphElement>>(
   ({ className, ...props }, ref) => (
-    // Inverted text color from slate-400 to slate-600
-    <p ref={ref} className={cn('text-sm text-slate-600', className)} {...props} />
+    <p ref={ref} className={cn('text-sm text-slate-500 font-medium', className)} {...props} />
   )
 );
 CardDescription.displayName = 'CardDescription';

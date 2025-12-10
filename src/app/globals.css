@@ -3,70 +3,88 @@
 @tailwind utilities;
 
 :root {
-  --background: #ffffff; /* White background */
-  --foreground: #020617; /* Slate-950 for text */
-}
-
-* {
-  scrollbar-width: thin;
-  /* Scrollbar visible on white background */
-  scrollbar-color: #94a3b8 #f1f5f9; /* slate-400 on slate-100 */
-}
-
-*::-webkit-scrollbar {
-  width: 8px;
-  height: 8px;
-}
-
-*::-webkit-scrollbar-track {
-  background: #f1f5f9; /* slate-100 */
-}
-
-*::-webkit-scrollbar-thumb {
-  background: #94a3b8; /* slate-400 */
-  border-radius: 4px;
-}
-
-*::-webkit-scrollbar-thumb:hover {
-  background: #64748b; /* slate-600 */
+  --background: #ffffff;
+  --foreground: #020617; /* Slate-950 */
 }
 
 body {
   color: var(--foreground);
   background: var(--background);
   font-family: var(--font-geist-sans), system-ui, sans-serif;
+  /* Add a subtle technical background grid like QELVA */
+  background-image: 
+    radial-gradient(at 0% 0%, rgba(8, 145, 178, 0.05) 0px, transparent 50%),
+    radial-gradient(at 100% 0%, rgba(6, 182, 212, 0.05) 0px, transparent 50%);
+  background-attachment: fixed;
 }
 
-/* Wallet Adapter Overrides */
+@layer components {
+  /* QELVA-Style "Tactical Glass" for Light Mode 
+     - High blur
+     - Thin, crisp border
+     - Subtle shadow that grows on hover
+  */
+  .glass-card {
+    @apply bg-white/70 backdrop-blur-md border border-slate-200 shadow-sm transition-all duration-300;
+  }
+  
+  .glass-card:hover {
+    @apply border-cyan-primary-400/50 shadow-lg shadow-cyan-primary-500/10 -translate-y-1;
+  }
+
+  /* Technical Badge style */
+  .tech-badge {
+    @apply px-2 py-1 rounded text-xs font-mono font-medium border;
+  }
+}
+
+/* Custom Scrollbar to match technical feel */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  @apply bg-slate-200 rounded-full hover:bg-cyan-primary-400 transition-colors;
+}
+
+/* Wallet Adapter Overrides - Making them sharper/technical */
 .wallet-adapter-button {
-  font-family: inherit !important;
+  font-family: var(--font-geist-mono) !important;
+  font-weight: 600 !important;
+  border-radius: 8px !important;
+  height: 40px !important;
+  font-size: 14px !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.05em !important;
 }
 
 .wallet-adapter-modal-wrapper {
-  /* Adjust modal for light theme contrast */
-  background: #f8fafc !important; /* slate-50 */
-  border: 1px solid #e2e8f0 !important; /* slate-200 */
+  background: rgba(255, 255, 255, 0.95) !important;
+  backdrop-filter: blur(12px) !important;
+  border: 1px solid #e2e8f0 !important;
+  box-shadow: 0 20px 50px -12px rgba(0, 0, 0, 0.1) !important;
+  border-radius: 16px !important;
 }
 
 .wallet-adapter-modal-title {
-  color: #020617 !important; /* slate-950 */
+  color: #0f172a !important;
+  font-weight: 700 !important;
 }
 
-.wallet-adapter-modal-list li {
-  background: #f1f5f9 !important; /* slate-100 */
-}
-
-.wallet-adapter-modal-list li:hover {
-  background: #e2e8f0 !important; /* slate-200 */
-}
-
-/* Apply new accent color to the connect button in the modal */
 .wallet-adapter-button-trigger {
   background-color: #0891b2 !important; /* cyan-primary-600 */
+  transition: all 0.3s ease !important;
 }
 
-@layer utilities {
-  .text-balance {
-    text-wrap: balance;
-  }
+.wallet-adapter-button-trigger:hover {
+  background-color: #06b6d4 !important; /* cyan-primary-500 */
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(8, 145, 178, 0.2);
+}
+
+.text-balance {
+  text-wrap: balance;
 }
