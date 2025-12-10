@@ -1,0 +1,7 @@
+{
+  "buildCommand": "NODE_OPTIONS='--max-old-space-size=4096' pnpm build",
+  "devCommand": "pnpm dev",
+  "installCommand": "pnpm install --frozen-lockfile",
+  "framework": "nextjs",
+  "regions": ["iad1"]
+}

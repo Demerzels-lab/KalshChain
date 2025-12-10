@@ -5,6 +5,16 @@ const nextConfig = {
   },
   eslint: {
     ignoreDuringBuilds: true
+  },
+  experimental: {
+    webpackBuildWorker: false
+  },
+  webpack: (config, { dev }) => {
+    if (!dev) {
+      // Disable webpack cache in production to reduce build size
+      config.cache = false;
+    }
+    return config;
   }
 };
 
