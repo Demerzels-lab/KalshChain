@@ -118,7 +118,7 @@ export default function HomePage() {
                 {/* Floating Stat Card */}
                 <div className="absolute -bottom-6 -left-6 glass-card p-4 rounded-xl border-cyan-primary-100 shadow-xl animate-float bg-white/80" style={{ animationDelay: '1.5s' }}>
                   <div className="text-xs text-slate-500 uppercase tracking-wider mb-1">Total Volume</div>
-                  <div className="text-2xl font-bold text-slate-900">2.4M SOL</div>
+                  <div className="text-2xl font-bold text-slate-900">30K SOL</div>
                 </div>
               </div>
             </div>
