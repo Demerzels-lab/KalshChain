@@ -165,7 +165,7 @@ export default function HomePage() {
                   <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-cyan-primary-400 opacity-75"></span>
                   <span className="relative inline-flex rounded-full h-2 w-2 bg-cyan-primary-500"></span>
                 </span>
-                <span className="text-xs font-semibold text-slate-600 tracking-wide uppercase">Solana Mainnet Beta</span>
+                <span className="text-xs font-semibold text-slate-600 tracking-wide uppercase">Solana Mainnet</span>
               </div>
 
               <h1 className="text-5xl sm:text-6xl lg:text-7xl font-bold tracking-tight text-slate-900 leading-[1.1]">
@@ -176,7 +176,7 @@ export default function HomePage() {
               </h1>
               
               <p className="text-lg text-slate-600 max-w-xl leading-relaxed">
-                on the future with blockchain transparency. From crypto to politics, 
+                Trade on the future with blockchain transparency. From crypto to politics, 
                 economics to sports all in one platform.
               </p>
 
