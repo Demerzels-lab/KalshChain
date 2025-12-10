@@ -33,7 +33,6 @@ const docStructure = [
   {
     title: 'Resources',
     items: [
-      { href: '/docs/faq', label: 'FAQ', icon: HelpCircle },
       { href: '/docs/glossary', label: 'Glossary', icon: Clock },
     ],
   },

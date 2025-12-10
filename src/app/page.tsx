@@ -8,15 +8,59 @@ import { LoadingScreen } from '@/components/LoadingScreen';
 import { useLoading } from '@/contexts/LoadingContext';
 import { Button } from '@/components/ui/button';
 import { motion } from 'framer-motion';
-import { TrendingUp, Zap, Shield, ArrowRight, Loader2, Globe, Activity, Construction, Layers, CheckCircle2, Timer, Rocket } from 'lucide-react';
+import { TrendingUp, Zap, Shield, ArrowRight, Loader2, Globe, Activity, Construction, Layers, CheckCircle2, Timer, Rocket, Twitter, Github, HelpCircle, ChevronDown, ChevronUp } from 'lucide-react';
 import Link from 'next/link';
 
 const categories = ['All', 'Crypto', 'Politics', 'Economy', 'Sports', 'AI & Tech', 'Culture'];
+
+const faqs = [
+  {
+    question: 'What is a prediction market?',
+    answer: 'A prediction market is a platform where you can trade on the outcomes of future events. Prices reflect the collective probability assessment of those events occurring. If you believe an event is more likely than the current price suggests, you can profit by buying shares.'
+  },
+  {
+    question: 'How do prices work?',
+    answer: 'Prices range from 0.01 to 0.99 SOL and represent the probability of an outcome. For example, if YES shares are trading at 0.60 SOL, the market believes theres a 60% chance the event will happen. When the market resolves, winning shares pay 1 SOL and losing shares pay 0 SOL.'
+  },
+  {
+    question: 'What wallet do I need?',
+    answer: 'Currently, we support Phantom wallet, which is the most popular Solana wallet. You can install it as a browser extension from phantom.app. Make sure you have some SOL for transaction fees.'
+  },
+  {
+    question: 'What are the fees?',
+    answer: 'We charge a 2% fee on each trade. This fee is used to reward liquidity providers and maintain the platform. There are also minimal Solana network fees (usually less than 0.01 SOL per transaction).'
+  },
+  {
+    question: 'How are markets resolved?',
+    answer: 'Markets are resolved based on publicly verifiable outcomes. For most markets, we use official sources like government announcements, financial data providers, or sports results. The resolution criteria is specified in each market description.'
+  },
+  {
+    question: 'Can I create my own market?',
+    answer: 'Yes! Connect your wallet and navigate to "Create Market". You can specify the question, category, expiration date, and initial liquidity. Your market will be immediately tradeable once created.'
+  },
+  {
+    question: 'What is KalshChain?',
+    answer: 'KalshChain is a decentralized prediction market platform built on the Solana blockchain. It allows users to trade on the outcome of future events using an Automated Market Maker (AMM) model.'
+  },
+  {
+    question: 'How are market prices determined?',
+    answer: 'Prices are determined by a Constant Product Market Maker (CPMM) formula (x * y = k), which balances the reserves of YES and NO shares in the liquidity pool. When one side is bought, its price increases automatically.'
+  },
+  {
+    question: 'Is KalshChain custodial or non-custodial?',
+    answer: 'KalshChain is non-custodial. Your funds are held entirely in your personal Solana wallet. Smart contracts manage the trade execution and settlement, but they never have direct control over your assets.'
+  },
+  {
+    question: 'What is the trading fee?',
+    answer: 'A small trading fee (currently 2%) is applied to every trade. This fee is automatically added to the market\'s liquidity pool and distributed to Liquidity Providers (LPs).'
+  }
+];
 
 export default function HomePage() {
   const { markets, loading } = useMarkets();
   const { isLoading, setIsLoading } = useLoading();
   const [activeCategory, setActiveCategory] = useState('All');
+  const [expandedFaq, setExpandedFaq] = useState<number | null>(null);
 
   const filteredMarkets = activeCategory === 'All'
     ? markets
@@ -84,6 +128,19 @@ export default function HomePage() {
                   <Zap className="h-4 w-4 text-amber-500" />
                   <span>&lt;400ms Latency</span>
                 </div>
+              </div>
+
+              <div className="flex items-center gap-4 pt-2">
+                <Link href="https://x.com/kalshchain" target="_blank" rel="noopener noreferrer" 
+                  className="flex items-center gap-2 px-3 py-2 rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-600 hover:text-slate-900 transition-colors">
+                  <Twitter className="h-4 w-4" />
+                  <span className="text-sm font-medium">Twitter</span>
+                </Link>
+                <Link href="https://github.com/Demerzels-lab/KalshChain" target="_blank" rel="noopener noreferrer" 
+                  className="flex items-center gap-2 px-3 py-2 rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-600 hover:text-slate-900 transition-colors">
+                  <Github className="h-4 w-4" />
+                  <span className="text-sm font-medium">GitHub</span>
+                </Link>
               </div>
             </div>
 
@@ -469,6 +526,93 @@ export default function HomePage() {
 
             </div>
           </div>
+        </div>
+      </section>
+
+      {/* --- FAQ SECTION --- */}
+      <section className="py-32 relative">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+          <motion.div 
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-100px" }}
+            transition={{ duration: 0.5 }}
+            className="text-center mb-16"
+          >
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-cyan-primary-500/10 border border-cyan-primary-500/20 text-cyan-primary-600 text-xs font-mono font-bold uppercase tracking-widest mb-4">
+              <HelpCircle className="h-4 w-4" />
+              FAQ
+            </div>
+            <h2 className="text-3xl sm:text-4xl font-bold text-slate-900 mb-4">Frequently Asked Questions</h2>
+            <p className="text-slate-600 max-w-2xl mx-auto">
+              Find answers to common questions about prediction markets, trading, and the KalshChain platform.
+            </p>
+          </motion.div>
+
+          <div className="space-y-4">
+            {faqs.map((faq, idx) => {
+              const isExpanded = expandedFaq === idx;
+
+              return (
+                <motion.div
+                  key={idx}
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true, margin: "-100px" }}
+                  transition={{ duration: 0.4, delay: idx * 0.05 }}
+                  className="border border-gray-200 rounded-lg bg-white shadow-sm hover:shadow-md transition-shadow"
+                >
+                  <button
+                    onClick={() => setExpandedFaq(isExpanded ? null : idx)}
+                    className="w-full text-left p-6 flex items-center justify-between gap-4 hover:bg-gray-50 transition-colors"
+                  >
+                    <span className="font-semibold text-slate-900 text-left">{faq.question}</span>
+                    {isExpanded ? (
+                      <ChevronUp className="h-5 w-5 text-slate-500 flex-shrink-0" />
+                    ) : (
+                      <ChevronDown className="h-5 w-5 text-slate-500 flex-shrink-0" />
+                    )}
+                  </button>
+                  {isExpanded && (
+                    <motion.div
+                      initial={{ opacity: 0, height: 0 }}
+                      animate={{ opacity: 1, height: 'auto' }}
+                      exit={{ opacity: 0, height: 0 }}
+                      transition={{ duration: 0.3 }}
+                      className="px-6 pb-6"
+                    >
+                      <p className="text-slate-700 leading-relaxed">{faq.answer}</p>
+                    </motion.div>
+                  )}
+                </motion.div>
+              );
+            })}
+          </div>
+
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-100px" }}
+            transition={{ duration: 0.5, delay: 0.5 }}
+            className="mt-16 p-8 bg-cyan-primary-50 border border-cyan-primary-200 rounded-2xl text-center"
+          >
+            <h3 className="text-xl font-semibold text-cyan-primary-900 mb-3">Still have questions?</h3>
+            <p className="text-cyan-primary-700 mb-6 max-w-md mx-auto">
+              Can't find what you're looking for? Check out our comprehensive documentation or reach out to the community.
+            </p>
+            <div className="flex flex-col sm:flex-row gap-3 justify-center">
+              <Link href="/docs">
+                <Button className="bg-cyan-primary-600 hover:bg-cyan-primary-700 text-white">
+                  View Documentation
+                </Button>
+              </Link>
+              <Link href="/how-it-works">
+                <Button variant="outline" className="border-cyan-primary-300 text-cyan-primary-700 hover:bg-cyan-primary-50">
+                  How It Works
+                </Button>
+              </Link>
+            </div>
+          </motion.div>
         </div>
       </section>
 
