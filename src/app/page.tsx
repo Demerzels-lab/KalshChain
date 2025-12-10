@@ -50,15 +50,15 @@ export default function HomePage() {
               </div>
 
               <h1 className="text-5xl sm:text-6xl lg:text-7xl font-bold tracking-tight text-slate-900 leading-[1.1]">
-                Tactical <br />
+                Decentralized Kalshi <br />
                 <span className="bg-gradient-to-r from-cyan-primary-600 via-cyan-primary-500 to-teal-500 bg-clip-text text-transparent">
-                  Prediction Engine
+                  Prediction Markets
                 </span>
               </h1>
               
               <p className="text-lg text-slate-600 max-w-xl leading-relaxed">
-                Execute trades on future outcomes with decentralized precision. 
-                Non-custodial, AMM-powered, and settled instantly on Solana.
+                on the future with blockchain transparency. From crypto to politics, 
+                economics to sports all in one platform.
               </p>
 
               <div className="flex flex-wrap gap-4">
@@ -180,7 +180,13 @@ export default function HomePage() {
       {/* --- MARKETS PREVIEW --- */}
       <section className="py-20 relative">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex items-end justify-between mb-10">
+          <motion.div 
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-100px" }}
+            transition={{ duration: 0.5 }}
+            className="flex items-end justify-between mb-10"
+          >
             <div>
               <h2 className="text-3xl font-bold text-slate-900 mb-2">Active Markets</h2>
               <p className="text-slate-500">Real-time prediction pools open for trading</p>
@@ -188,12 +194,22 @@ export default function HomePage() {
             <Link href="/explore" className="hidden sm:flex items-center gap-2 text-cyan-primary-600 font-semibold hover:text-cyan-primary-700 transition-colors">
               View All <ArrowRight className="h-4 w-4" />
             </Link>
-          </div>
+          </motion.div>
 
-          <div className="flex gap-2 overflow-x-auto pb-6 scrollbar-hide mb-6">
-            {categories.map((cat) => (
-              <button
+          <motion.div 
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-100px" }}
+            transition={{ duration: 0.5, delay: 0.1 }}
+            className="flex gap-2 overflow-x-auto pb-6 scrollbar-hide mb-6"
+          >
+            {categories.map((cat, index) => (
+              <motion.button
                 key={cat}
+                initial={{ opacity: 0, scale: 0.9 }}
+                whileInView={{ opacity: 1, scale: 1 }}
+                viewport={{ once: true, margin: "-100px" }}
+                transition={{ duration: 0.3, delay: 0.2 + index * 0.05 }}
                 onClick={() => setActiveCategory(cat)}
                 className={`px-5 py-2 rounded-full text-sm font-medium whitespace-nowrap transition-all ${
                   activeCategory === cat
@@ -202,55 +218,48 @@ export default function HomePage() {
                 }`}
               >
                 {cat}
-              </button>
+              </motion.button>
             ))}
-          </div>
+          </motion.div>
 
-          {loading ? (
-            <div className="flex items-center justify-center h-64 glass-card rounded-2xl">
-              <Loader2 className="h-8 w-8 animate-spin text-cyan-primary-500" />
-            </div>
-          ) : (
-            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {(activeCategory === 'All' ? markets : filteredMarkets).slice(0, 6).map((market) => (
-                <MarketCard key={market.id} market={market} />
-              ))}
-            </div>
-          )}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-100px" }}
+            transition={{ duration: 0.5, delay: 0.3 }}
+          >
+            {loading ? (
+              <div className="flex items-center justify-center h-64 glass-card rounded-2xl">
+                <Loader2 className="h-8 w-8 animate-spin text-cyan-primary-500" />
+              </div>
+            ) : (
+              <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                {(activeCategory === 'All' ? markets : filteredMarkets).slice(0, 6).map((market, index) => (
+                  <motion.div
+                    key={market.id}
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true, margin: "-100px" }}
+                    transition={{ duration: 0.4, delay: 0.4 + index * 0.1 }}
+                  >
+                    <MarketCard market={market} />
+                  </motion.div>
+                ))}
+              </div>
+            )}
+          </motion.div>
           
-          <div className="mt-10 text-center sm:hidden">
+          <motion.div 
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-100px" }}
+            transition={{ duration: 0.5, delay: 0.5 }}
+            className="mt-10 text-center sm:hidden"
+          >
             <Link href="/explore">
               <Button variant="outline" className="w-full">View All Markets</Button>
             </Link>
-          </div>
-        </div>
-      </section>
-
-      {/* --- CTA SECTION --- */}
-      <section className="py-24 relative overflow-hidden">
-        <div className="absolute inset-0 bg-slate-900 -z-10">
-          <div className="absolute inset-0 opacity-20 bg-[url('/grid.svg')]" />
-          {/* Dark mode glow for contrast in footer area */}
-          <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[800px] h-[400px] bg-cyan-primary-500/20 blur-[100px] rounded-full" />
-        </div>
-
-        <div className="max-w-4xl mx-auto px-4 text-center">
-          <h2 className="text-4xl font-bold text-white mb-6">Ready to execute your strategy?</h2>
-          <p className="text-lg text-slate-300 mb-10 max-w-2xl mx-auto">
-            Join thousands of traders on the most advanced prediction layer on Solana.
-          </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Link href="/explore">
-              <Button size="lg" className="bg-cyan-primary-500 hover:bg-cyan-primary-400 text-white border-0 shadow-lg shadow-cyan-primary-500/30">
-                Start Trading
-              </Button>
-            </Link>
-            <Link href="/create">
-              <Button size="lg" variant="outline" className="border-slate-700 text-white hover:bg-white/10 bg-transparent">
-                Create Market
-              </Button>
-            </Link>
-          </div>
+          </motion.div>
         </div>
       </section>
 
@@ -459,6 +468,34 @@ export default function HomePage() {
               </motion.div>
 
             </div>
+          </div>
+        </div>
+      </section>
+
+      {/* --- CTA SECTION --- */}
+      <section className="py-24 relative overflow-hidden">
+        <div className="absolute inset-0 bg-slate-900 -z-10">
+          <div className="absolute inset-0 opacity-20 bg-[url('/grid.svg')]" />
+          {/* Dark mode glow for contrast in footer area */}
+          <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[800px] h-[400px] bg-cyan-primary-500/20 blur-[100px] rounded-full" />
+        </div>
+
+        <div className="max-w-4xl mx-auto px-4 text-center">
+          <h2 className="text-4xl font-bold text-white mb-6">Ready to execute your strategy?</h2>
+          <p className="text-lg text-slate-300 mb-10 max-w-2xl mx-auto">
+            Join thousands of traders on the most advanced prediction layer on Solana.
+          </p>
+          <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <Link href="/explore">
+              <Button size="lg" className="bg-cyan-primary-500 hover:bg-cyan-primary-400 text-white border-0 shadow-lg shadow-cyan-primary-500/30">
+                Start Trading
+              </Button>
+            </Link>
+            <Link href="/create">
+              <Button size="lg" variant="outline" className="border-slate-700 text-white hover:bg-white/10 bg-transparent">
+                Create Market
+              </Button>
+            </Link>
           </div>
         </div>
       </section>
